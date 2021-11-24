@@ -1,0 +1,23 @@
+<h2>Filtry</h2>
+<div class="filter-container">
+    <div class="filter">
+        <p>Kraj: </p>
+        <li *ngFor="let country of countries">
+            {{country}} <input type="checkbox" [name]="country">
+        </li>
+    </div>
+    <div class="filter">
+        <p>Cena od: </p>
+        <input type="number">
+    </div>
+    <div class="filter">
+        <p>Cena do: </p>
+        <input type="number">
+    </div>
+    <div class="filter">
+        <p>Oceny: </p>
+            TODO
+    </div>
+    <button (click)="filterDishes()">Zastosuj</button>
+    <button (click)="removeFilters()">Resetuj filtry</button>
+</div>

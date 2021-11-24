@@ -10,6 +10,7 @@ import { AddDishComponent } from './add-dish/add-dish.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RatingComponent } from './rating/rating.component';
 import { BasketComponent } from './basket/basket.component';
+import { FilterComponent } from './filter/filter.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { BasketComponent } from './basket/basket.component';
     OrderedMealsCounterComponent,
     AddDishComponent,
     RatingComponent,
-    BasketComponent
+    BasketComponent,
+    FilterComponent
   ],
   imports: [
     BrowserModule,

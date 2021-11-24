@@ -3,7 +3,7 @@
 <app-basket [basket]="basket" [totalCost]="totalCost"></app-basket>
 <div id="dishes">
   <ng-container *ngFor="let d of dishData">
-    <app-dish [dishData]="d"></app-dish>
+    <app-dish [dishData]="d" (orderDishEmitter)="addToBasket($event)" (resignEmitter)="removeFromBasket($event)"></app-dish>
   </ng-container>
 </div>
 <app-add-dish></app-add-dish>

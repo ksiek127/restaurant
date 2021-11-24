@@ -1,11 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-@Component({
-  selector: 'app-basket',
-  templateUrl: './basket.component.html',
-  styleUrls: ['./basket.component.css']
-})
-
 export interface basketObject{
   [x: string]: any,
   key: string,
@@ -13,6 +7,12 @@ export interface basketObject{
   cost: number,
   howMany: number
 }
+
+@Component({
+  selector: 'app-basket',
+  templateUrl: './basket.component.html',
+  styleUrls: ['./basket.component.css']
+})
 
 export class BasketComponent implements OnInit {
   @Input() basket: basketObject[] = [];
