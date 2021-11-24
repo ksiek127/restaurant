@@ -1,0 +1,44 @@
+<h1>Dodaj danie</h1>
+<form [formGroup]="addDishFormGroup" (ngSubmit)="onSubmit()">
+    <div>
+        <label>Nazwa dania: </label>
+        <input class="form-input" id="name-input" formControlName="name">
+        <div *ngIf="name.invalid && name.touched" class="alert">Podaj unikalną nazwę dania</div>
+    </div>
+    <div>
+        <label>Kraj pochodzenia: </label>
+        <input class="form-input" id="country-input" formControlName="country">
+        <div *ngIf="country.invalid && country.touched" class="alert">Podaj nazwę kraju</div>
+    </div>
+    <div>
+        <label>Kategoria: </label>
+        <input class="form-input" id="category-input" formControlName="category">
+        <div *ngIf="category.invalid && category.touched" class="alert">Podaj nazwę kategorii</div>
+    </div>
+    <div>
+        <label>Składniki oddzielone przecinkiem: </label>
+        <input class="form-input" id="ingredients-input" formControlName="ingredients">
+        <div *ngIf="ingredients.invalid && ingredients.touched" class="alert">Podaj listę składników</div>
+    </div>
+    <div>
+        <label>Ilość: </label>
+        <input class="form-input" id="max-no-input" formControlName="maxNo" type="number">
+        <div *ngIf="maxNo.invalid && maxNo.touched" class="alert">Podaj maksymalną ilość</div>
+    </div>
+    <div>
+        <label>Cena: </label>
+        <input class="form-input" id="price-input" formControlName="price" type="number">
+        <div *ngIf="price.invalid && price.touched" class="alert">Podaj cenę</div>
+    </div>
+    <div>
+        <label>Opis: </label>
+        <input class="form-input" id="description-input" formControlName="description">
+        <div *ngIf="description.invalid && description.touched" class="alert">Podaj opis dania</div>
+    </div>
+    <div>
+        <label>Zdjęcia oddzielone przecinkiem: </label>
+        <input class="form-input" id="photos-input" formControlName="photos">
+        <div *ngIf="photos.invalid && photos.touched" class="alert">Podaj linki do zdjęć</div>
+    </div>
+    <button type="submit" [disabled]="!addDishFormGroup.valid">Dodaj</button>
+</form>

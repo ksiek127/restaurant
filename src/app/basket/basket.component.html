@@ -1,0 +1,7 @@
+<h1 class="basket-header">Koszyk</h1>
+<ul>
+    <li *ngFor="let item of basket">{{item.dishName}}: {{item.howMany}}</li>
+</ul>
+<div class="summary">
+    {{totalCost}} $
+</div>
