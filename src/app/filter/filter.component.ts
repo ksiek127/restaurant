@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { Dish } from '../dish/dish.component';
+import { Dish } from '../dishes/dish/dish.component';
 
 export interface Filter{
   countries: string[],

@@ -1,4 +1,4 @@
-<div class="dish-container" [style.border-color]="borderColor">
+<div class="dish-container" [style.border-color]="getBorderColor()">
     <ul class="dish-details">
         <li class="unavailable" [style.visibility]="noneLeft ? 'visible' : 'hidden'">Niedostępne</li>
         <li class="name">{{dishData.name | uppercase}}</li>
@@ -6,7 +6,7 @@
         <li class="category">{{dishData.category}}</li>
         <li class="ingredients">{{dishData.ingredients}}</li>
         <li class="units-available" [style.background-color]="lastUnits ? 'red' : 'white'">{{unitsOrdered}} / {{dishData.maxNo}}</li>
-        <li class="price">{{dishData.price}}</li>
+        <li class="price">{{calculatedPrice}} {{currencySign}}</li>
         <li class="description">{{dishData.description}}</li>
     </ul>
     <div class="dish-img">

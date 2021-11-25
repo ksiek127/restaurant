@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { dishes } from '../dishes';
+import { dishes } from '../../dishes';
 
 export interface Dish{
   name: string,
@@ -22,6 +22,10 @@ export interface Dish{
 })
 export class DishComponent implements OnInit {
   @Input() dishData: Dish;
+  @Input() cheapest: string;
+  @Input() mostExpensive: string;
+  @Input() currencySign: string;
+  @Input() calculatedPrice: number;
   @Output() deleteDishEmitter = new EventEmitter();
   @Output() orderDishEmitter = new EventEmitter();
   @Output() resignEmitter = new EventEmitter();
@@ -31,9 +35,10 @@ export class DishComponent implements OnInit {
   unitsOrdered = 0;
   lastUnits = false;
   noneLeft = false;
-  mostExpensive: string;
-  cheapest: string;
-  borderColor: string;
+  // calculatedPrice: number;
+  // mostExpensive: string;
+  // cheapest: string;
+  // borderColor: string;
 
   constructor() {
    }
@@ -42,7 +47,9 @@ export class DishComponent implements OnInit {
     if(this.dishData.maxNo <= 3){
       this.lastUnits = true;
     }
-    this.getCheapestAndMostExpensive();
+    // this.getCheapestAndMostExpensive();
+    this.getBorderColor();
+    this.calculatedPrice = this.dishData.price;
   }
 
   checkIfLastUnits(){
@@ -85,27 +92,6 @@ export class DishComponent implements OnInit {
     }
   }
 
-  getCheapestAndMostExpensive(){
-    let minPrice = dishes[0].price;
-    let maxPrice = dishes[0].price;
-    this.cheapest = dishes[0].name;
-    this.mostExpensive = dishes[0].name;
-    for(let d of dishes){
-      if(d.price < minPrice){
-        minPrice = d.price;
-        this.cheapest = d.name;
-      }else if(d.price > maxPrice){
-        maxPrice = d.price;
-        this.mostExpensive = d.name;
-      }
-    }
-    if(this.dishData.name == this.cheapest){
-      this.borderColor = "red";
-    }else if(this.dishData.name == this.mostExpensive){
-      this.borderColor = "green";
-    }
-  }
-
   deleteDish(name: string){
     for(let i=0; i<dishes.length; i++){
       if(dishes[i].name == name){
@@ -113,9 +99,55 @@ export class DishComponent implements OnInit {
         while(this.unitsOrdered > 0){
           this.removeOrderedDish();
         }
+        this.dishData.show = false;
         this.deleteDishEmitter.emit(name);
       }
     }
-    this.getCheapestAndMostExpensive();
+    this.getBorderColor();
+    // this.getCheapestAndMostExpensive();
   }
+
+  // getCheapestAndMostExpensive(){
+  //   let minPrice = dishes[0].price;
+  //   let maxPrice = dishes[0].price;
+  //   this.cheapest = dishes[0].name;
+  //   this.mostExpensive = dishes[0].name;
+  //   for(let d of dishes){
+  //     if(d.price < minPrice){
+  //       minPrice = d.price;
+  //       this.cheapest = d.name;
+  //     }else if(d.price > maxPrice){
+  //       maxPrice = d.price;
+  //       this.mostExpensive = d.name;
+  //     }
+  //   }
+  //   if(this.dishData.name == this.cheapest){
+  //     this.borderColor = "red";
+  //   }else if(this.dishData.name == this.mostExpensive){
+  //     this.borderColor = "green";
+  //   }
+  // }
+  getBorderColor(){
+    // if(this.dishData.name == this.cheapest){
+    //   this.borderColor = 'red';
+    // }else if(this.dishData.name == this.mostExpensive){
+    //   this.borderColor = 'green';
+    // }else{
+    //   this.borderColor = 'white';
+    // }
+    if(this.dishData.name == this.cheapest){
+      return 'red';
+    }else if(this.dishData.name == this.mostExpensive){
+      return 'green';
+    }
+    return 'transparent';
+  }
+
+  // calculatePrice(){
+  //   if(this.currency == "eur"){
+  //     this.calculatedPrice = Math.round(this.dishData.price * 89) / 100;
+  //   }else{
+  //     this.calculatedPrice = this.dishData.price;
+  //   }
+  // }
 }

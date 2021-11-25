@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { basketObject } from './basket/basket.component';
-import { Dish } from './dish/dish.component';
-import {dishes} from './dishes';
+import { dishes } from './dishes';
+import { Dish } from './dishes/dish/dish.component';
 
 @Component({
   selector: 'app-root',
@@ -10,13 +10,24 @@ import {dishes} from './dishes';
 })
 export class AppComponent {
   title = 'restaurant';
+  // @Output() cheapestEmitter = new EventEmitter();
+  // @Output() mostExpensiveEmitter = new EventEmitter();
+  // currency: string = "usd";
   dishData: Dish[] = dishes;
   mealsOrdered = 0;
   totalCost = 0;
   basket: basketObject[] = [];
+  dish: Dish;
+  mostExpensive: string;
+  cheapest: string;
+  multiplier = 1;
+  currencySign = "$";
 
   constructor(){
-    this.dishData = dishes;
+  }
+
+  ngOnInit(): void {
+    this.updateBorders();
   }
 
   addToBasket(dish: Dish){
@@ -52,6 +63,34 @@ export class AppComponent {
           this.basket.splice(i, 1);
         }
       }
+    }
+  }
+
+  updateBorders(){
+    let minPrice = dishes[0].price;
+    let maxPrice = dishes[0].price;
+    this.cheapest = dishes[0].name;
+    this.mostExpensive = dishes[0].name;
+    for(let d of dishes){
+      if(d.price < minPrice){
+        minPrice = d.price;
+        this.cheapest = d.name;
+      }else if(d.price > maxPrice){
+        maxPrice = d.price;
+        this.mostExpensive = d.name;
+      }
+    }
+    // this.cheapestEmitter.emit(this.cheapest);
+    // this.mostExpensiveEmitter.emit(this.mostExpensive);
+  }
+
+  changeCurrency(currency: string){
+    if(currency == "eur"){
+      this.multiplier = 0.89;
+      this.currencySign = "€";
+    }else{
+      this.multiplier = 1;
+      this.currencySign = "$";
     }
   }
 }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Dish } from '../dishes/dish/dish.component';
 
 export interface basketObject{
   [x: string]: any,
@@ -17,6 +18,7 @@ export interface basketObject{
 export class BasketComponent implements OnInit {
   @Input() basket: basketObject[] = [];
   @Input() totalCost: number = 0;
+  @Input() currencySign: string;
 
   constructor() { }
 

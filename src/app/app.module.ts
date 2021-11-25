@@ -4,13 +4,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DishesComponent } from './dishes/dishes.component';
-import { DishComponent } from './dish/dish.component';
+import { DishComponent } from './dishes/dish/dish.component';
 import { OrderedMealsCounterComponent } from './ordered-meals-counter/ordered-meals-counter.component';
 import { AddDishComponent } from './add-dish/add-dish.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RatingComponent } from './rating/rating.component';
 import { BasketComponent } from './basket/basket.component';
 import { FilterComponent } from './filter/filter.component';
+import { CurrencySwitchComponent } from './currency-switch/currency-switch.component';
 
 @NgModule({
   declarations: [
@@ -21,12 +22,14 @@ import { FilterComponent } from './filter/filter.component';
     AddDishComponent,
     RatingComponent,
     BasketComponent,
-    FilterComponent
+    FilterComponent,
+    CurrencySwitchComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
