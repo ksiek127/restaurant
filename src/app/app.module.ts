@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DishesComponent } from './dishes/dishes.component';
-import { DishComponent } from './dishes/dish/dish.component';
+import { DishComponent } from './dish/dish.component';
 import { OrderedMealsCounterComponent } from './ordered-meals-counter/ordered-meals-counter.component';
 import { AddDishComponent } from './add-dish/add-dish.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

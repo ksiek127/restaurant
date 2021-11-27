@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { dishes } from '../../dishes';
+import { dishes } from '../dishes';
 
 export interface Dish{
   name: string,

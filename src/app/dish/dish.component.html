@@ -1,16 +1,15 @@
 <div class="dish-container" [style.border-color]="getBorderColor()">
     <ul class="dish-details">
-        <li class="unavailable" [style.visibility]="noneLeft ? 'visible' : 'hidden'">Niedostępne</li>
-        <li class="name">{{dishData.name | uppercase}}</li>
-        <li class="country">{{dishData.country | uppercase}}</li>
-        <li class="category">{{dishData.category}}</li>
-        <li class="ingredients">{{dishData.ingredients}}</li>
-        <li class="units-available" [style.background-color]="lastUnits ? 'red' : 'white'">{{unitsOrdered}} / {{dishData.maxNo}}</li>
-        <li class="price">{{calculatedPrice}} {{currencySign}}</li>
+        <li class="unavailable" [style.visibility]="noneLeft ? 'visible' : 'hidden'">currently unavailable</li>
+        <li class="name-country">{{dishData.name | uppercase}}, {{dishData.country | uppercase}}</li>
+        <li class="category">Category: {{dishData.category}}</li>
+        <li class="ingredients">Ingredients: {{dishData.ingredients}}</li>
+        <li class="meals-ordered" [style.background-color]="lastUnits ? 'orange' : 'beige'">Meals ordered: {{unitsOrdered}} / {{dishData.maxNo}}</li>
+        <li class="price">Price: {{calculatedPrice}} {{currencySign}}</li>
         <li class="description">{{dishData.description}}</li>
     </ul>
-    <div class="dish-img">
-        <img [src]="dishData.photos[0]" alt="błąd przy wczytywaniu zdjęcia">
+    <div class="dish-img-container">
+        <img class="dish-img" [src]="dishData.photos[0]" alt="błąd przy wczytywaniu zdjęcia">
     </div>
     <div class="dish-buttons">
         <button class="add-btn" (click)="orderDish()" [style.visibility]="orderBtnVisible ? 'visible' : 'hidden'">
@@ -27,6 +26,6 @@
         <app-rating [dish]="dishData"></app-rating>
     </div>
     <div class="rating-score">
-        Ocena: {{dishData.rating}}
+        Rating: {{dishData.rating}}
     </div>
 </div>

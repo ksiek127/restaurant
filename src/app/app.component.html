@@ -1,10 +1,14 @@
-<h1>Restauracja</h1>
-<app-currency-switch (currencyEmitter)="changeCurrency($event)"></app-currency-switch>
-<app-ordered-meals-counter [mealsOrdered]="mealsOrdered"></app-ordered-meals-counter>
-<app-basket [basket]="basket" [totalCost]="totalCost * multiplier" [currencySign]="currencySign"></app-basket>
-<div id="dishes">
-  <ng-container *ngFor="let d of dishData">
-    <app-dish [dishData]="d" [cheapest]="cheapest" [mostExpensive]="mostExpensive" [calculatedPrice]="multiplier * d.price" [currencySign]="currencySign" (orderDishEmitter)="addToBasket($event)" (resignEmitter)="removeFromBasket($event)" (deleteDishEmitter)="updateBorders()"></app-dish>
-  </ng-container>
+<h1 class="main-header">Restaurant</h1>
+<div class="container">
+  <div class="sidebar">
+    <app-currency-switch class="currency" (currencyEmitter)="changeCurrency($event)"></app-currency-switch>
+    <app-ordered-meals-counter class="meals-counter" [mealsOrdered]="mealsOrdered"></app-ordered-meals-counter>
+    <app-basket class="basket" [basket]="basket" [totalCost]="totalCost * multiplier" [currencySign]="currencySign"></app-basket>
+  </div>
+  <div id="dishes">
+    <ng-container *ngFor="let d of dishData">
+      <app-dish [dishData]="d" [cheapest]="cheapest" [mostExpensive]="mostExpensive" [calculatedPrice]="multiplier * d.price" [currencySign]="currencySign" (orderDishEmitter)="addToBasket($event)" (resignEmitter)="removeFromBasket($event)" (deleteDishEmitter)="updateBorders()"></app-dish>
+    </ng-container>
+  </div>
+  <app-add-dish class="adding-form"></app-add-dish>
 </div>
-<app-add-dish></app-add-dish>

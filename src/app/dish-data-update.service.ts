@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Dish } from './dishes/dish/dish.component';
+import { Dish } from './dish/dish.component';
 import { dishes } from './dishes';
 
 @Injectable({

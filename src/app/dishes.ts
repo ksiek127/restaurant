@@ -1,4 +1,4 @@
-import {Dish} from './dishes/dish/dish.component';
+import {Dish} from './dish/dish.component';
 
 export const dishes: Dish[] = [
         {
@@ -9,7 +9,7 @@ export const dishes: Dish[] = [
             "maxNo": 4,
             "price": 12,
             "description": "super",
-            "photos": ["img1", "img2", "img3"],
+            "photos": ["../assets/food.jpg", "../assets/food2.jpg", "../assets/food3.jpg"],
             "show": true,
             "votes": 0,
             "rating": 0
@@ -22,7 +22,7 @@ export const dishes: Dish[] = [
             "maxNo": 12,
             "price": 8,
             "description": "tradycyjne jedzenie",
-            "photos": ["img1", "img2", "img3"],
+            "photos": ["../assets/food.jpg", "../assets/food2.jpg", "../assets/food3.jpg"],
             "show": true,
             "votes": 0,
             "rating": 0
@@ -35,7 +35,7 @@ export const dishes: Dish[] = [
             "maxNo": 2,
             "price": 9,
             "description": "deser norweski",
-            "photos": ["img1", "img2", "img3"],
+            "photos": ["../assets/food.jpg", "../assets/food2.jpg", "../assets/food3.jpg"],
             "show": true,
             "votes": 0,
             "rating": 0
@@ -48,7 +48,7 @@ export const dishes: Dish[] = [
             "maxNo": 3,
             "price": 2,
             "description": "ukrainskie jedzenie",
-            "photos": ["img1", "img2", "img3"],
+            "photos": ["../assets/food.jpg", "../assets/food2.jpg", "../assets/food3.jpg"],
             "show": true,
             "votes": 0,
             "rating": 0 
@@ -61,7 +61,7 @@ export const dishes: Dish[] = [
             "maxNo": 42,
             "price": 8,
             "description": "super",
-            "photos": ["img1", "img2", "img3"],
+            "photos": ["../assets/food.jpg", "../assets/food2.jpg", "../assets/food3.jpg"],
             "show": true,
             "votes": 0,
             "rating": 0 
@@ -74,7 +74,7 @@ export const dishes: Dish[] = [
             "maxNo": 20,
             "price": 38,
             "description": "super chinskie jedzenie",
-            "photos": ["img1", "img2", "img3"],
+            "photos": ["../assets/food.jpg", "../assets/food2.jpg", "../assets/food3.jpg"],
             "show": true,
             "votes": 0,
             "rating": 0 
@@ -87,7 +87,7 @@ export const dishes: Dish[] = [
             "maxNo": 426,
             "price": 23,
             "description": "wietnamskie",
-            "photos": ["img1", "img2", "img3"],
+            "photos": ["../assets/food.jpg", "../assets/food2.jpg", "../assets/food3.jpg"],
             "show": true,
             "votes": 0,
             "rating": 0 
@@ -100,7 +100,7 @@ export const dishes: Dish[] = [
             "maxNo": 12,
             "price": 11,
             "description": "super",
-            "photos": ["img1", "img2", "img3"],
+            "photos": ["../assets/food.jpg", "../assets/food2.jpg", "../assets/food3.jpg"],
             "show": true,
             "votes": 0,
             "rating": 0 
@@ -113,7 +113,7 @@ export const dishes: Dish[] = [
             "maxNo": 41,
             "price": 15,
             "description": "super",
-            "photos": ["img1", "img2", "img3"],
+            "photos": ["../assets/food.jpg", "../assets/food2.jpg", "../assets/food3.jpg"],
             "show": true,
             "votes": 0,
             "rating": 0 
@@ -126,7 +126,7 @@ export const dishes: Dish[] = [
             "maxNo": 41,
             "price": 12,
             "description": "super",
-            "photos": ["img1", "img2", "img3"],
+            "photos": ["../assets/food.jpg", "../assets/food2.jpg", "../assets/food3.jpg"],
             "show": true,
             "votes": 0,
             "rating": 0 
@@ -139,7 +139,7 @@ export const dishes: Dish[] = [
             "maxNo": 14,
             "price": 12,
             "description": "super",
-            "photos": ["img1", "img2", "img3"],
+            "photos": ["../assets/food.jpg", "../assets/food2.jpg", "../assets/food3.jpg"],
             "show": true,
             "votes": 0,
             "rating": 0 
@@ -152,7 +152,7 @@ export const dishes: Dish[] = [
             "maxNo": 46,
             "price": 18,
             "description": "super",
-            "photos": ["img1", "img2", "img3"],
+            "photos": ["../assets/food.jpg", "../assets/food2.jpg", "../assets/food3.jpg"],
             "show": true,
             "votes": 0,
             "rating": 0 

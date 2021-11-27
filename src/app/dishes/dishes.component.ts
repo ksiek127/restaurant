@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { basketObject } from '../basket/basket.component';
-import {Dish} from './dish/dish.component';
 import { dishes } from '../dishes';
 
 @Component({

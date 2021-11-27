@@ -1,0 +1,10 @@
+.ordered-meals-info{
+    color: white;
+    width: 20vw;
+    height: 3em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    border-radius: 1em;
+}

@@ -1,44 +1,63 @@
-<h1>Dodaj danie</h1>
-<form [formGroup]="addDishFormGroup" (ngSubmit)="onSubmit()">
-    <div>
-        <label>Nazwa dania: </label>
+<div class="container">
+    <h1>Add dish</h1>
+<form class="add-form" [formGroup]="addDishFormGroup" (ngSubmit)="onSubmit()">
+    <div class="input-container">
+        <label>Dish name: </label>
+        <br>
         <input class="form-input" id="name-input" formControlName="name">
-        <div *ngIf="name.invalid && name.touched" class="alert">Podaj unikalną nazwę dania</div>
+        <br>
+        <div *ngIf="name.invalid && name.touched" class="alert">This field cannot be empty, the name must be unique</div>
     </div>
-    <div>
-        <label>Kraj pochodzenia: </label>
+    <div class="input-container">
+        <label>Country: </label>
+        <br>
         <input class="form-input" id="country-input" formControlName="country">
-        <div *ngIf="country.invalid && country.touched" class="alert">Podaj nazwę kraju</div>
+        <br>
+        <div *ngIf="country.invalid && country.touched" class="alert">This field cannot be empty</div>
     </div>
-    <div>
-        <label>Kategoria: </label>
+    <div class="input-container">
+        <label>Category: </label>
+        <br>
         <input class="form-input" id="category-input" formControlName="category">
-        <div *ngIf="category.invalid && category.touched" class="alert">Podaj nazwę kategorii</div>
+        <br>
+        <div *ngIf="category.invalid && category.touched" class="alert">This field cannot be empty</div>
     </div>
-    <div>
-        <label>Składniki oddzielone przecinkiem: </label>
+    <div class="input-container">
+        <label>Comma separated ingredients: </label>
+        <br>
         <input class="form-input" id="ingredients-input" formControlName="ingredients">
-        <div *ngIf="ingredients.invalid && ingredients.touched" class="alert">Podaj listę składników</div>
+        <br>
+        <div *ngIf="ingredients.invalid && ingredients.touched" class="alert">This field cannot be empty</div>
     </div>
-    <div>
-        <label>Ilość: </label>
+    <div class="input-container">
+        <label>Quantity: </label>
+        <br>
         <input class="form-input" id="max-no-input" formControlName="maxNo" type="number">
-        <div *ngIf="maxNo.invalid && maxNo.touched" class="alert">Podaj maksymalną ilość</div>
+        <br>
+        <div *ngIf="maxNo.invalid && maxNo.touched" class="alert">This field cannot be empty</div>
     </div>
-    <div>
-        <label>Cena: </label>
+    <div class="input-container">
+        <label>Unit price: </label>
+        <br>
         <input class="form-input" id="price-input" formControlName="price" type="number">
-        <div *ngIf="price.invalid && price.touched" class="alert">Podaj cenę</div>
+        <br>
+        <div *ngIf="price.invalid && price.touched" class="alert">This field cannot be empty</div>
     </div>
-    <div>
-        <label>Opis: </label>
+    <div class="input-container">
+        <label>Description: </label>
+        <br>
         <input class="form-input" id="description-input" formControlName="description">
-        <div *ngIf="description.invalid && description.touched" class="alert">Podaj opis dania</div>
+        <br>
+        <div *ngIf="description.invalid && description.touched" class="alert">This field cannot be empty</div>
     </div>
-    <div>
-        <label>Zdjęcia oddzielone przecinkiem: </label>
+    <div class="input-container">
+        <label>Comma separated photo urls: </label>
+        <br>
         <input class="form-input" id="photos-input" formControlName="photos">
-        <div *ngIf="photos.invalid && photos.touched" class="alert">Podaj linki do zdjęć</div>
+        <br>
+        <div *ngIf="photos.invalid && photos.touched" class="alert">This field cannot be empty</div>
     </div>
-    <button type="submit" [disabled]="!addDishFormGroup.valid">Dodaj</button>
+    <button class="submit-btn" type="submit" [disabled]="!addDishFormGroup.valid">Add</button>
 </form>
+
+</div>

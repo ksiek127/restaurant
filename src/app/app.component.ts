@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { basketObject } from './basket/basket.component';
 import { dishes } from './dishes';
-import { Dish } from './dishes/dish/dish.component';
+import { Dish } from './dish/dish.component';
 
 @Component({
   selector: 'app-root',

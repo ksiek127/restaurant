@@ -1,6 +1,6 @@
 import { Component, NgModule, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Dish } from '../dishes/dish/dish.component';
+import { Dish } from '../dish/dish.component';
 import {DishDataUpdateService} from '../dish-data-update.service'
 import { BrowserModule } from '@angular/platform-browser';
 

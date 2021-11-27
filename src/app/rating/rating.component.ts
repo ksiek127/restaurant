@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import * as EventEmitter from 'events';
-import { Dish } from '../dishes/dish/dish.component';
+import { Dish } from '../dish/dish.component';
 
 @Component({
   selector: 'app-rating',

@@ -1,0 +1,39 @@
+.container{
+    color: navy;
+    background-color: rgb(240, 225, 144);
+    box-shadow: lightsteelblue 0.5em 0.5em 1em 0.5em;
+    width: 30vw;
+    margin: auto;
+}
+
+h1{
+    padding-top: 1em;
+    margin: 3em auto 1em auto;
+    text-align: center;
+    width: 30vw;
+}
+
+.add-form{
+    margin: auto;
+    text-align: center;
+}
+
+.submit-btn{
+    border-radius: 0.5em;
+    padding: 0.5em;
+    margin-bottom: 1em;
+}
+
+.form-input{
+    border: none;
+    background-color: white;
+    height: 2em;
+}
+
+.input-container{
+    padding: 1em;
+}
+
+.input-container > label, .form-input, .alert{
+    margin: 1em;
+}
