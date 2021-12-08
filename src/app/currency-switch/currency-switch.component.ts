@@ -8,8 +8,6 @@ import { format } from 'path';
 })
 export class CurrencySwitchComponent implements OnInit {
   @Output() currencyEmitter = new EventEmitter();
-  // currency: string = "usd";
-  // euro: boolean = false;
 
   constructor() { }
 
@@ -17,12 +15,6 @@ export class CurrencySwitchComponent implements OnInit {
   }
 
   updateCurrency(currency: string){
-    // if(this.euro){
-    //   this.currency = "eur";
-    // }else{
-    //   this.currency = "usd";
-    // }
-    // this.currencyEmitter.emit(this.currency);
     this.currencyEmitter.emit(currency);
   }
 

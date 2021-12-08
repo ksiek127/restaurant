@@ -1,27 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Dish } from '../dish/dish.component';
 import { dishes } from '../dishes';
 
-export interface Dish{
-  name: string,
-  country: string,
-  category: string,
-  ingredients: string[],
-  maxNo: number,
-  price: number,
-  description: string,
-  photos: string[],
-  show: boolean,
-  rating: number,
-  votes: number
-}
-
 @Component({
-  selector: 'app-dish',
-  templateUrl: './dish.component.html',
-  styleUrls: ['./dish.component.css']
+  selector: 'app-dish-basic',
+  templateUrl: './dish-basic.component.html',
+  styleUrls: ['./dish-basic.component.css']
 })
-export class DishComponent implements OnInit {
+export class DishBasicComponent implements OnInit {
+
   @Input() dishData: Dish;
   @Input() cheapest: string;
   @Input() mostExpensive: string;
@@ -31,7 +18,6 @@ export class DishComponent implements OnInit {
   @Output() orderDishEmitter = new EventEmitter();
   @Output() resignEmitter = new EventEmitter();
 
-  // dishData: Dish;
   orderBtnVisible = true;
   resignBtnVisible = false;
   unitsOrdered = 0;
@@ -39,11 +25,9 @@ export class DishComponent implements OnInit {
   noneLeft = false;
 
   constructor() {
-    
-  }
+   }
 
   ngOnInit(): void {
-    this.dishData = history.state;
     if(this.dishData.maxNo <= 3){
       this.lastUnits = true;
     }
@@ -113,4 +97,5 @@ export class DishComponent implements OnInit {
     }
     return 'transparent';
   }
+
 }

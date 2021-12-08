@@ -12,6 +12,10 @@ import { RatingComponent } from './rating/rating.component';
 import { BasketComponent } from './basket/basket.component';
 import { FilterComponent } from './filter/filter.component';
 import { CurrencySwitchComponent } from './currency-switch/currency-switch.component';
+import { RouterModule, Routes } from '@angular/router';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { NavComponent } from './nav/nav.component';
+import { DishBasicComponent } from './dish-basic/dish-basic.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,10 @@ import { CurrencySwitchComponent } from './currency-switch/currency-switch.compo
     RatingComponent,
     BasketComponent,
     FilterComponent,
-    CurrencySwitchComponent
+    CurrencySwitchComponent,
+    PageNotFoundComponent,
+    NavComponent,
+    DishBasicComponent
   ],
   imports: [
     BrowserModule,

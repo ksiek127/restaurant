@@ -1,14 +1,18 @@
-<h1 class="main-header">Restaurant</h1>
+<h1 class="main-header">Żur*k Restaurant</h1>
 <div class="container">
+  <app-nav></app-nav>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
   <div class="sidebar">
-    <app-currency-switch class="currency" (currencyEmitter)="changeCurrency($event)"></app-currency-switch>
-    <app-ordered-meals-counter class="meals-counter" [mealsOrdered]="mealsOrdered"></app-ordered-meals-counter>
-    <app-basket class="basket" [basket]="basket" [totalCost]="totalCost * multiplier" [currencySign]="currencySign"></app-basket>
+    <div class="contact-details">
+      <h2>Contact: </h2>
+      <ul>
+        <li>Phone: +48 666 666 666</li>
+        <li>Email: lorem@ipsum</li>
+        <li>Twitter: @lorem_ipsum12345</li>
+      </ul>
+    </div>
+    <img class="map-img" src="../assets/map.PNG">
   </div>
-  <div id="dishes">
-    <ng-container *ngFor="let d of dishData">
-      <app-dish [dishData]="d" [cheapest]="cheapest" [mostExpensive]="mostExpensive" [calculatedPrice]="multiplier * d.price" [currencySign]="currencySign" (orderDishEmitter)="addToBasket($event)" (resignEmitter)="removeFromBasket($event)" (deleteDishEmitter)="updateBorders()"></app-dish>
-    </ng-container>
-  </div>
-  <app-add-dish class="adding-form"></app-add-dish>
 </div>

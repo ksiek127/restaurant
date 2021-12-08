@@ -1,0 +1,15 @@
+.navbar{
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 1.5em;
+}
+
+.navbar > li > a{
+    text-decoration: none;
+    color: navy;
+}
+
+.navbar > li:hover{
+    cursor: pointer;
+}

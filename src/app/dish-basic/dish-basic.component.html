@@ -1,0 +1,29 @@
+<div class="dish-container" [style.border-color]="getBorderColor()">
+    <ul class="dish-details">
+        <li class="unavailable" [style.visibility]="noneLeft ? 'visible' : 'hidden'">currently unavailable</li>
+        <li class="name-country">{{dishData.name | uppercase}}, {{dishData.country | uppercase}}</li>
+        <li class="category">Category: {{dishData.category}}</li>
+        <li class="ingredients">Ingredients: {{dishData.ingredients}}</li>
+        <li class="meals-ordered" [style.background-color]="lastUnits ? 'orange' : 'beige'">Meals ordered: {{unitsOrdered}} / {{dishData.maxNo}}</li>
+        <li class="price">Price: {{calculatedPrice}} {{currencySign}}</li>
+        <li class="description">{{dishData.description}}</li>
+    </ul>
+    <div class="dish-img-container">
+        <img class="dish-img" [src]="dishData.photos[0]" alt="błąd przy wczytywaniu zdjęcia">
+    </div>
+    <div class="dish-buttons">
+        <button class="add-btn" (click)="orderDish()" [style.visibility]="orderBtnVisible ? 'visible' : 'hidden'">
+            +
+        </button>
+        <button class="remove-btn" (click)="removeOrderedDish()" [style.visibility]="resignBtnVisible ? 'visible' : 'hidden'">
+            -
+        </button>
+        <button class="delete-btn" (click)="deleteDish(dishData.name)">
+            del
+        </button>
+    </div>
+    <div class="rating-score">
+        Rating: {{dishData.rating}}
+    </div>
+    <a [routerLink]="['/dish']" [state]=dishData routerLinkActive="active">Details</a>
+</div>

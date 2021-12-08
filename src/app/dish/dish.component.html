@@ -8,9 +8,6 @@
         <li class="price">Price: {{calculatedPrice}} {{currencySign}}</li>
         <li class="description">{{dishData.description}}</li>
     </ul>
-    <div class="dish-img-container">
-        <img class="dish-img" [src]="dishData.photos[0]" alt="błąd przy wczytywaniu zdjęcia">
-    </div>
     <div class="dish-buttons">
         <button class="add-btn" (click)="orderDish()" [style.visibility]="orderBtnVisible ? 'visible' : 'hidden'">
             +
@@ -18,14 +15,46 @@
         <button class="remove-btn" (click)="removeOrderedDish()" [style.visibility]="resignBtnVisible ? 'visible' : 'hidden'">
             -
         </button>
-        <button class="delete-btn" (click)="deleteDish(dishData.name)">
-            del
-        </button>
     </div>
     <div class="rating-component">
         <app-rating [dish]="dishData"></app-rating>
     </div>
     <div class="rating-score">
-        Rating: {{dishData.rating}}
+        Rating: {{dishData.rating}}<br>
+        Votes: {{dishData.votes}}
     </div>
 </div>
+<ng-container class="dish-img-container" *ngFor="let photo of dishData.photos">
+    <img class="dish-img" [src]="photo" alt="błąd przy wczytywaniu zdjęcia">
+</ng-container>
+<form class="review-form" [formGroup]="reviewFormGroup" (ngSubmit)="onSubmit()">
+    <div class="input-container">
+        <label>Nickname: </label>
+        <br>
+        <input class="form-input" id="name-input" formControlName="name">
+        <br>
+        <div *ngIf="name.invalid && name.touched" class="alert">This field cannot be empty, the name must be unique</div>
+    </div>
+    <div class="input-container">
+        <label>Review title: </label>
+        <br>
+        <input class="form-input" id="country-input" formControlName="country">
+        <br>
+        <div *ngIf="country.invalid && country.touched" class="alert">This field cannot be empty</div>
+    </div>
+    <div class="input-container">
+        <label>Review: </label>
+        <br>
+        <input class="form-input" id="category-input" formControlName="category">
+        <br>
+        <div *ngIf="category.invalid && category.touched" class="alert">This field cannot be empty</div>
+    </div>
+    <div class="input-container">
+        <label>Order date: </label>
+        <br>
+        <input class="form-input" id="ingredients-input" formControlName="ingredients">
+        <br>
+        <div *ngIf="ingredients.invalid && ingredients.touched" class="alert">This field cannot be empty</div>
+    </div>
+    <button class="submit-btn" type="submit" [disabled]="!reviewFormGroup.valid">Add</button>
+</form>
