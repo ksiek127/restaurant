@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import * as EventEmitter from 'events';
 import { Dish } from '../dish/dish.component';
+import { DishDataUpdateService } from '../services/dish-data-update.service';
 
 @Component({
   selector: 'app-rating',
@@ -12,14 +13,15 @@ export class RatingComponent implements OnInit {
   @Input() dish: Dish;
   @Output() addRating = new EventEmitter();
 
-  constructor() { }
+  constructor(private updateService: DishDataUpdateService) { }
 
   ngOnInit(): void {
   }
 
   rate(score: number){
     this.dish.rating = Math.round(((this.dish.rating * this.dish.votes + score) / (this.dish.votes + 1)) * 100) / 100;
-    this.dish.votes++;
+    this.dish.votes = this.dish.votes + 1;
+    this.updateService.updateDish(this.dish);
     // this.addRating.emit(this.dish.name);
   }
 }

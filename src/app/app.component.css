@@ -20,14 +20,6 @@
     color: navy;
 }
 
-#dishes{
-    grid-row: 1/2;
-    grid-column: 1/2;
-    display: flex;
-    width: 70vw;
-    flex-wrap: wrap;
-}
-
 .currency{
     display: inline-block;
     margin-bottom: 1em;

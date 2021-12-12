@@ -18,12 +18,12 @@
         <button class="remove-btn" (click)="removeOrderedDish()" [style.visibility]="resignBtnVisible ? 'visible' : 'hidden'">
             -
         </button>
-        <button class="delete-btn" (click)="deleteDish(dishData.name)">
+        <button class="delete-btn" (click)="deleteDish()">
             del
         </button>
     </div>
     <div class="rating-score">
         Rating: {{dishData.rating}}
     </div>
-    <a [routerLink]="['/dish']" [state]=dishData routerLinkActive="active">Details</a>
+    <a [routerLink]="['/dish/:' + dishData.key]" [state]=dishData routerLinkActive="active">Details</a>
 </div>

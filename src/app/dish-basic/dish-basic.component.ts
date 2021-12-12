@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Dish } from '../dish/dish.component';
-import { dishes } from '../dishes';
+import { FirestoreService } from '../services/firestore.service';
 
 @Component({
   selector: 'app-dish-basic',
@@ -18,13 +18,14 @@ export class DishBasicComponent implements OnInit {
   @Output() orderDishEmitter = new EventEmitter();
   @Output() resignEmitter = new EventEmitter();
 
+  dishList: Dish[] = [];
   orderBtnVisible = true;
   resignBtnVisible = false;
   unitsOrdered = 0;
   lastUnits = false;
   noneLeft = false;
 
-  constructor() {
+  constructor(private dbService: FirestoreService) {
    }
 
   ngOnInit(): void {
@@ -57,6 +58,7 @@ export class DishBasicComponent implements OnInit {
       if(this.dishData.maxNo == this.unitsOrdered){
         this.noneLeft = true;
       }
+      this.dbService.updateBasket(this.dishData, this.unitsOrdered);
     }
   }
 
@@ -72,22 +74,23 @@ export class DishBasicComponent implements OnInit {
       }
       this.checkIfLastUnits();
       this.noneLeft = false;
+      this.dbService.updateBasket(this.dishData, this.unitsOrdered);
     }
   }
 
-  deleteDish(name: string){
-    for(let i=0; i<dishes.length; i++){
-      if(dishes[i].name == name){
-        dishes.splice(i, 1);
-        while(this.unitsOrdered > 0){
-          this.removeOrderedDish();
-        }
-        this.dishData.show = false;
-        this.deleteDishEmitter.emit(name);
-      }
-    }
-    this.getBorderColor();
-  }
+  // deleteDish(name: string){
+  //   for(let i=0; i<this.dishList.length; i++){
+  //     if(this.dishList[i].name == name){
+  //       this.dishList.splice(i, 1);
+  //       while(this.unitsOrdered > 0){
+  //         this.removeOrderedDish();
+  //       }
+  //       this.dishData.show = false;
+  //       this.deleteDishEmitter.emit(name);
+  //     }
+  //   }
+  //   this.getBorderColor();
+  // }
 
   getBorderColor(){
     if(this.dishData.name == this.cheapest){
@@ -96,6 +99,15 @@ export class DishBasicComponent implements OnInit {
       return 'green';
     }
     return 'transparent';
+  }
+
+  deleteDish(){
+    while(this.unitsOrdered > 0){
+      this.removeOrderedDish();
+    }
+    this.deleteDishEmitter.emit(this.dishData.name);
+    this.dbService.removeDish(this.dishData.key);
+    // this.getBorderColor();
   }
 
 }

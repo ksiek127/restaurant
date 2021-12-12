@@ -3,5 +3,6 @@
     <li *ngFor="let item of basket">{{item.dishName}}: {{item.howMany}}</li>
 </ul>
 <div class="summary">
-    Total cost: {{totalCost}} {{currencySign}}
+    Number of ordered dishes: {{orderedDishesCount()}}<br>
+    Total cost: {{getTotalCost()}} {{currencySign}}
 </div>

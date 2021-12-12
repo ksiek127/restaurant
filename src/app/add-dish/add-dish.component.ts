@@ -1,8 +1,8 @@
 import { Component, NgModule, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Dish } from '../dish/dish.component';
-import {DishDataUpdateService} from '../dish-data-update.service'
 import { BrowserModule } from '@angular/platform-browser';
+import { DishDataUpdateService } from '../services/dish-data-update.service';
 
 @Component({
   selector: 'app-add-dish',
@@ -23,7 +23,7 @@ export class AddDishComponent implements OnInit {
   description: FormControl = new FormControl("", Validators.required);
   photos: FormControl = new FormControl("", Validators.required);
 
-  constructor() {
+  constructor(private updateService: DishDataUpdateService) {
     this.formInit();
    }
 
@@ -32,6 +32,7 @@ export class AddDishComponent implements OnInit {
   }
 
   newDish: Dish = {
+    key: "",
     name: "",
     country: "",
     category: "",
@@ -42,7 +43,8 @@ export class AddDishComponent implements OnInit {
     photos: [],
     show: true,
     rating: 0,
-    votes: 0
+    votes: 0,
+    reviews: []
   }
 
   formInit(){
@@ -67,11 +69,11 @@ export class AddDishComponent implements OnInit {
       this.newDish.maxNo = this.addDishFormGroup.value.maxNo,
       this.newDish.price = this.addDishFormGroup.value.price,
       this.newDish.description = this.addDishFormGroup.value.description,
-      this.newDish.photos = this.addDishFormGroup.value.photos,
+      this.newDish.photos = this.addDishFormGroup.value.photos.split(','),
       this.newDish.show = true;
       this.newDish.rating = 0;
       this.newDish.votes = 0;
-      DishDataUpdateService.addDish(this.newDish);
+      this.updateService.addDish(this.newDish);
       this.addDishFormGroup.reset();
     }
   }

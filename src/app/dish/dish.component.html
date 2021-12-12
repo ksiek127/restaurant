@@ -31,30 +31,36 @@
     <div class="input-container">
         <label>Nickname: </label>
         <br>
-        <input class="form-input" id="name-input" formControlName="name">
+        <input class="form-input" id="nickname-input" formControlName="nickname">
         <br>
-        <div *ngIf="name.invalid && name.touched" class="alert">This field cannot be empty, the name must be unique</div>
+        <div *ngIf="nickname.invalid && nickname.touched" class="alert">This field cannot be empty, the name must be unique</div>
     </div>
     <div class="input-container">
         <label>Review title: </label>
         <br>
-        <input class="form-input" id="country-input" formControlName="country">
+        <input class="form-input" id="title-input" formControlName="title">
         <br>
-        <div *ngIf="country.invalid && country.touched" class="alert">This field cannot be empty</div>
+        <div *ngIf="title.invalid && title.touched" class="alert">This field cannot be empty</div>
     </div>
     <div class="input-container">
         <label>Review: </label>
         <br>
-        <input class="form-input" id="category-input" formControlName="category">
+        <input class="form-input" id="content-input" formControlName="reviewContent" minlength="50" maxlength="500">
         <br>
-        <div *ngIf="category.invalid && category.touched" class="alert">This field cannot be empty</div>
+        <div *ngIf="reviewContent.invalid && reviewContent.touched" class="alert">Review should be between 50 and 500 characters</div>
     </div>
     <div class="input-container">
         <label>Order date: </label>
         <br>
-        <input class="form-input" id="ingredients-input" formControlName="ingredients">
+        <input class="form-input" id="date-input" formControlName="orderDate" type="date" [max]="maxDate">
         <br>
-        <div *ngIf="ingredients.invalid && ingredients.touched" class="alert">This field cannot be empty</div>
+        <div *ngIf="orderDate.invalid && orderDate.touched" class="alert">Choose valid date</div>
     </div>
     <button class="submit-btn" type="submit" [disabled]="!reviewFormGroup.valid">Add</button>
 </form>
+<ng-container class="reviews-container" *ngFor="let review of dishData.reviews">
+    <p>From: {{review.nickname}}</p>
+    <p *ngIf="review.orderDate != null">Order date: {{review.orderDate}}</p>
+    <p>Title: {{review.title}}</p>
+    <p>{{review.content}}</p>
+</ng-container>

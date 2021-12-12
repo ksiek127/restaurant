@@ -1,5 +1,5 @@
 <div id="dishes">
-  <ng-container *ngFor="let d of dishData">
+  <ng-container *ngFor="let d of dishList">
     <app-dish-basic [dishData]="d" [cheapest]="cheapest" [mostExpensive]="mostExpensive" (orderDishEmitter)="addToBasket($event)" (resignEmitter)="removeFromBasket($event)" (deleteDishEmitter)="updateBorders()"></app-dish-basic>
   </ng-container>
 </div>

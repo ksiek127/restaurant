@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { basketObject } from '../basket/basket.component';
 import { Dish } from '../dish/dish.component';
-import { dishes } from '../dishes';
+import { FirestoreService } from '../services/firestore.service';
 
 @Component({
   selector: 'app-dishes',
@@ -9,7 +10,7 @@ import { dishes } from '../dishes';
   styleUrls: ['./dishes.component.css']
 })
 export class DishesComponent implements OnInit {
-  dishData: Dish[] = dishes;
+  dishList: Dish[] = [];
   mealsOrdered = 0;
   totalCost = 0;
   basket: basketObject[] = [];
@@ -19,11 +20,20 @@ export class DishesComponent implements OnInit {
   multiplier = 1;
   currencySign = "$";
 
-  constructor(){
+  constructor(public dbService: FirestoreService){
+    this.getDishList();
   }
 
   ngOnInit(){
     this.updateBorders();
+  }
+
+  getDishList(){
+    this.dbService.getDishList().snapshotChanges().pipe(
+      map(changes => changes.map(c => ({key : c.payload.key, ...c.payload.val()})))
+    ).subscribe(dishes =>{
+      this.dishList = dishes as Dish[];
+    });
   }
 
   addToBasket(dish: Dish){
@@ -40,7 +50,6 @@ export class DishesComponent implements OnInit {
     }
     if(!inBasket){
       this.basket.push({
-        x: [],
         key: "aaa",
         dishName: dish.name,
         cost: dish.price,
@@ -63,11 +72,11 @@ export class DishesComponent implements OnInit {
   }
 
   updateBorders(){
-    let minPrice = dishes[0].price;
-    let maxPrice = dishes[0].price;
-    this.cheapest = dishes[0].name;
-    this.mostExpensive = dishes[0].name;
-    for(let d of dishes){
+    let minPrice = this.dishList[0].price;
+    let maxPrice = this.dishList[0].price;
+    this.cheapest = this.dishList[0].name;
+    this.mostExpensive = this.dishList[0].name;
+    for(let d of this.dishList){
       if(d.price < minPrice){
         minPrice = d.price;
         this.cheapest = d.name;

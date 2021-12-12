@@ -16,6 +16,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NavComponent } from './nav/nav.component';
 import { DishBasicComponent } from './dish-basic/dish-basic.component';
+import { AngularFireModule } from "@angular/fire/compat";
+import { environment } from '../environments/environment'; 
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +40,9 @@ import { DishBasicComponent } from './dish-basic/dish-basic.component';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]
