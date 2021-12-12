@@ -12,8 +12,8 @@ export class DishBasicComponent implements OnInit {
   @Input() dishData: Dish;
   @Input() cheapest: string;
   @Input() mostExpensive: string;
-  @Input() currencySign: string;
-  @Input() calculatedPrice: number;
+  // @Input() currencySign: string;
+  // @Input() calculatedPrice: number;
   @Output() deleteDishEmitter = new EventEmitter();
   @Output() orderDishEmitter = new EventEmitter();
   @Output() resignEmitter = new EventEmitter();
@@ -24,8 +24,11 @@ export class DishBasicComponent implements OnInit {
   unitsOrdered = 0;
   lastUnits = false;
   noneLeft = false;
+  currency: string;
+  calculatedPrice: number;
 
   constructor(private dbService: FirestoreService) {
+    this.getCurrency();
    }
 
   ngOnInit(): void {
@@ -33,7 +36,22 @@ export class DishBasicComponent implements OnInit {
       this.lastUnits = true;
     }
     this.getBorderColor();
+  }
+
+  getCurrency(){
+    this.dbService.getCurrency().valueChanges().subscribe(currency => {
+      if(currency != null){
+        this.currency = currency;
+        this.getPrice();
+      }
+    })
+  }
+
+  getPrice(){
     this.calculatedPrice = this.dishData.price;
+    if(this.currency == "€"){
+      this.calculatedPrice *= 0.88;
+    }
   }
 
   checkIfLastUnits(){
@@ -109,5 +127,4 @@ export class DishBasicComponent implements OnInit {
     this.dbService.removeDish(this.dishData.key);
     // this.getBorderColor();
   }
-
 }

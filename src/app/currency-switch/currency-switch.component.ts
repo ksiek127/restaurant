@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { format } from 'path';
+import { FirestoreService } from '../services/firestore.service';
 
 @Component({
   selector: 'app-currency-switch',
@@ -7,15 +8,16 @@ import { format } from 'path';
   styleUrls: ['./currency-switch.component.css']
 })
 export class CurrencySwitchComponent implements OnInit {
-  @Output() currencyEmitter = new EventEmitter();
+  // @Output() currencyEmitter = new EventEmitter();
 
-  constructor() { }
+  constructor(private db: FirestoreService) { }
 
   ngOnInit(): void {
   }
 
   updateCurrency(currency: string){
-    this.currencyEmitter.emit(currency);
+    // this.currencyEmitter.emit(currency);
+    this.db.updateCurrency(currency);
   }
 
 }

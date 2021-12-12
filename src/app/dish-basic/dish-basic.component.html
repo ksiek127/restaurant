@@ -5,7 +5,7 @@
         <li class="category">Category: {{dishData.category}}</li>
         <li class="ingredients">Ingredients: {{dishData.ingredients}}</li>
         <li class="meals-ordered" [style.background-color]="lastUnits ? 'orange' : 'beige'">Meals ordered: {{unitsOrdered}} / {{dishData.maxNo}}</li>
-        <li class="price">Price: {{calculatedPrice}} {{currencySign}}</li>
+        <li class="price">Price: {{calculatedPrice}} {{currency}}</li>
         <li class="description">{{dishData.description}}</li>
     </ul>
     <div class="dish-img-container">
@@ -25,5 +25,5 @@
     <div class="rating-score">
         Rating: {{dishData.rating}}
     </div>
-    <a [routerLink]="['/dish/:' + dishData.key]" [state]=dishData routerLinkActive="active">Details</a>
+    <a [routerLink]="['/dish/' + dishData.key]" [state]=dishData routerLinkActive="active">Details</a>
 </div>

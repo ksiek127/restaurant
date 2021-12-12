@@ -5,7 +5,7 @@
         <li class="category">Category: {{dishData.category}}</li>
         <li class="ingredients">Ingredients: {{dishData.ingredients}}</li>
         <li class="meals-ordered" [style.background-color]="lastUnits ? 'orange' : 'beige'">Meals ordered: {{unitsOrdered}} / {{dishData.maxNo}}</li>
-        <li class="price">Price: {{calculatedPrice}} {{currencySign}}</li>
+        <li class="price">Price: {{calculatedPrice}} {{currency}}</li>
         <li class="description">{{dishData.description}}</li>
     </ul>
     <div class="dish-buttons">
@@ -58,9 +58,11 @@
     </div>
     <button class="submit-btn" type="submit" [disabled]="!reviewFormGroup.valid">Add</button>
 </form>
-<ng-container class="reviews-container" *ngFor="let review of dishData.reviews">
-    <p>From: {{review.nickname}}</p>
-    <p *ngIf="review.orderDate != null">Order date: {{review.orderDate}}</p>
-    <p>Title: {{review.title}}</p>
-    <p>{{review.content}}</p>
+<ng-container class="reviews-container" *ngFor="let review of reviews">
+    <div *ngIf="review.dishKey == dishData.key">
+        <p>From: {{review.nickname}}</p>
+        <p *ngIf="review.orderDate">Order date: {{review.orderDate}}</p>
+        <p>Title: {{review.title}}</p>
+        <p>{{review.content}}</p>
+    </div>
 </ng-container>

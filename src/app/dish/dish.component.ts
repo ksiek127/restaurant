@@ -23,10 +23,12 @@ export interface Dish{
 }
 
 export interface Review{
+  key: string,
   nickname: string,
   title: string,
   content: string,
-  orderDate: Date | null
+  orderDate: Date | null,
+  dishKey: string
 }
 
 @Component({
@@ -38,19 +40,22 @@ export class DishComponent implements OnInit {
   // @Input() dishData: Dish;
   @Input() cheapest: string;
   @Input() mostExpensive: string;
-  @Input() currencySign: string;
-  @Input() calculatedPrice: number;
+  // @Input() currencySign: string;
+  // @Input() calculatedPrice: number;
   @Output() deleteDishEmitter = new EventEmitter();
   @Output() orderDishEmitter = new EventEmitter();
   @Output() resignEmitter = new EventEmitter();
 
   dishData: Dish;
+  currency: string;
   // dishList: Dish[] = [];
   orderBtnVisible = true;
   resignBtnVisible = false;
   unitsOrdered = 0;
   lastUnits = false;
   noneLeft = false;
+  reviews: Review[];
+  calculatedPrice: number;
 
   maxDate = new Date();
   reviewFormGroup: FormGroup = Object();
@@ -62,59 +67,50 @@ export class DishComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private dbService: FirestoreService, private reviewUpdateService: ReviewUpdateService) {
     this.newReview = {
+      key: "",
       nickname: "",
       title: "",
       content: "",
-      orderDate: null
+      orderDate: null,
+      dishKey: ""
     }
     this.formInit();
+    this.getReviews();
+    this.getCurrency();
+    var key = this.route.snapshot.paramMap.get('id');
+    if(key != null){
+      this.getDish(key);
+    }
   }
 
   ngOnInit(): void {
     this.formInit();
-    // this.dishData = history.state;
-    var key = this.route.snapshot.paramMap.get('id');
-    this.getDish(key);
-    // this.dishData.name = dish.name;
-    // this.dishData.country = dish.country;
-    // this.dishData.category = dish.category;
-    // this.dishData.ingredients = dish.ingredients;
-    // this.dishData.maxNo = dish.maxNo;
-    // this.dishData.price = dish.price;
-    // this.dishData.description = dish.description;
-    // this.dishData.photos = dish.photos;
-    // this.dishData.show = dish.show;
-    // this.dishData.rating = dish.rating;
-    // this.dishData.votes = dish.votes;
-    // this.dishData.reviews = dish.reviews;
-    if(this.dishData.maxNo <= 3){
-      this.lastUnits = true;
-    }
-    this.getBorderColor();
-    this.calculatedPrice = this.dishData.price;
   }
 
-  getDish(key: string | null){
-    this.dbService.getDishList().snapshotChanges().pipe(
-      map(changes => changes.map(c => ({key : c.payload.key, ...c.payload.val()})))
-    ).subscribe(dishes =>{
-      dishes.forEach((dish) => {
-        if(dish.key == key){
-          this.dishData.name = dish.name;
-          this.dishData.country = dish.country;
-          this.dishData.category = dish.category;
-          this.dishData.ingredients = dish.ingredients;
-          this.dishData.maxNo = dish.maxNo;
-          this.dishData.price = dish.price;
-          this.dishData.description = dish.description;
-          this.dishData.photos = dish.photos;
-          this.dishData.show = dish.show;
-          this.dishData.rating = dish.rating;
-          this.dishData.votes = dish.votes;
-          this.dishData.reviews = dish.reviews;
-        }
-      })
-    });
+  getCurrency(){
+    this.dbService.getCurrency().valueChanges().subscribe(currency => {
+      if(currency != null){
+        this.currency = currency;
+      }
+    })
+  }
+
+  getPrice(){
+    this.calculatedPrice = this.dishData.price;
+    if(this.currency == "€"){
+      this.calculatedPrice *= 0.88;
+    }
+  }
+
+  getDish(key: string){
+    this.dbService.getDish(key).subscribe(dish => {
+      this.dishData = dish;
+      if(dish.maxNo <= 3){
+        this.lastUnits = true;
+      }
+      this.getPrice();
+      this.getBorderColor();
+    })
   }
 
   checkIfLastUnits(){
@@ -183,8 +179,17 @@ export class DishComponent implements OnInit {
       this.newReview.title = this.reviewFormGroup.value.title;
       this.newReview.content = this.reviewFormGroup.value.reviewContent;
       this.newReview.orderDate = this.reviewFormGroup.value.orderDate;
-      this.reviewUpdateService.addReview(this.dishData, this.newReview);
+      this.newReview.dishKey = this.dishData.key;
+      this.reviewUpdateService.addReview(this.newReview);
       this.reviewFormGroup.reset();
     }
+  }
+
+  getReviews(){
+    this.reviewUpdateService.getReviews().snapshotChanges().pipe(
+      map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() })))
+    ).subscribe(reviews =>{
+      this.reviews = reviews as Review[];
+    });
   }
 }
