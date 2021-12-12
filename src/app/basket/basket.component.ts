@@ -20,11 +20,12 @@ export interface basketObject{
 export class BasketComponent implements OnInit {
   // @Input() basket: basketObject[] = [];
   // totalCost: number = 0;
-  currencySign: string;
+  currency: string;
   basket: basketObject[];
 
   constructor(private dbService: FirestoreService) {
     this.getBasket();
+    this.getCurrency();
    }
 
   ngOnInit(): void {
@@ -43,6 +44,9 @@ export class BasketComponent implements OnInit {
     for(var b of this.basket){
       totalCost += b.cost * b.howMany;
     }
+    if(this.currency == "€"){
+      totalCost *= 0.88;
+    }
     return totalCost;
   }
 
@@ -52,5 +56,13 @@ export class BasketComponent implements OnInit {
       counter += b.howMany;
     }
     return counter;
+  }
+
+  getCurrency(){
+    this.dbService.getCurrency().valueChanges().subscribe(currency => {
+      if(currency != null){
+        this.currency = currency;
+      }
+    })
   }
 }

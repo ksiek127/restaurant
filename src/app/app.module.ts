@@ -19,6 +19,7 @@ import { DishBasicComponent } from './dish-basic/dish-basic.component';
 import { AngularFireModule } from "@angular/fire/compat";
 import { environment } from '../environments/environment'; 
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { MainpageComponent } from './mainpage/mainpage.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
     CurrencySwitchComponent,
     PageNotFoundComponent,
     NavComponent,
-    DishBasicComponent
+    DishBasicComponent,
+    MainpageComponent
   ],
   imports: [
     BrowserModule,

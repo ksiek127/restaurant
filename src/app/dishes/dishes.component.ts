@@ -18,7 +18,7 @@ export class DishesComponent implements OnInit {
   mostExpensive: string;
   cheapest: string;
   multiplier = 1;
-  currencySign = "$";
+  currencySign: string;
 
   constructor(public dbService: FirestoreService){
     this.getDishList();
@@ -84,16 +84,6 @@ export class DishesComponent implements OnInit {
         maxPrice = d.price;
         this.mostExpensive = d.name;
       }
-    }
-  }
-
-  changeCurrency(currency: string){
-    if(currency == "eur"){
-      this.multiplier = 0.89;
-      this.currencySign = "€";
-    }else{
-      this.multiplier = 1;
-      this.currencySign = "$";
     }
   }
 }

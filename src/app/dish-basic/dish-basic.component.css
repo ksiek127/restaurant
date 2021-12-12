@@ -1,0 +1,42 @@
+.dish-container{
+    border: 2px solid;
+    text-align: center;
+    width: 20vw;
+    background-color: beige;
+    color: navy;
+    margin: 2em 1em 1em 1em;
+    box-shadow: lightsteelblue 0.5em 0.5em 1em 0.5em;
+}
+
+.dish-details{
+    list-style: none;
+    margin: 0 auto 1em auto;
+    text-align: left;
+}
+
+.unavailable{
+    font-size: 1.25em;
+    margin: 0.5em auto 0 auto;
+    color: red;
+}
+
+.name-country{
+    font-size: 1.5em;
+}
+
+.category{
+    font-size: 1.25em;
+}
+
+.meals-ordered{
+    width: 75%;
+}
+
+.dish-details > li{
+    margin-bottom: 1em;
+}
+
+.dish-img{
+    width: 20vw;
+    height: auto;
+}
