@@ -19,6 +19,11 @@ export class DishesComponent implements OnInit {
   cheapest: string;
   multiplier = 1;
   currencySign: string;
+  pageNo = 1;
+  itemsPerPage = 3;
+  dishesToShow: Dish[];
+  prevButtonVisible = false;
+  nextButtonVisible = true;
 
   constructor(public dbService: FirestoreService){
     this.getDishList();
@@ -33,6 +38,7 @@ export class DishesComponent implements OnInit {
       map(changes => changes.map(c => ({key : c.payload.key, ...c.payload.val()})))
     ).subscribe(dishes =>{
       this.dishList = dishes as Dish[];
+      this.updatePage();
     });
   }
 
@@ -85,5 +91,44 @@ export class DishesComponent implements OnInit {
         this.mostExpensive = d.name;
       }
     }
+  }
+
+  prevPage(){
+    this.pageNo--;
+    this.updatePage();
+    if(this.pageNo == 1){
+      this.prevButtonVisible = false;
+    }
+    // this.isNextBtnVisible();
+  }
+
+  isNextBtnVisible(){
+    if(this.pageNo * this.itemsPerPage >= this.dishList.length){
+      this.nextButtonVisible = false;
+    }else{
+      this.nextButtonVisible = true;
+    }
+  }
+
+  nextPage(){
+    this.pageNo++;
+    this.updatePage();
+    this.prevButtonVisible = true;
+  }
+
+  updatePage(){
+    while((this.pageNo - 1) * this.itemsPerPage >= this.dishList.length){
+      this.pageNo--;
+    }
+    if(this.pageNo == 1){
+      this.prevButtonVisible = false;
+    }
+    this.dishesToShow = [];
+      for(var i=(this.pageNo - 1) * this.itemsPerPage; i<this.pageNo * this.itemsPerPage; i++){
+        if(i < this.dishList.length){
+          this.dishesToShow.push(this.dishList[i]);
+        }
+      }
+      this.isNextBtnVisible();
   }
 }
