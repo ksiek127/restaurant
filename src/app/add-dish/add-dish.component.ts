@@ -1,7 +1,6 @@
-import { Component, NgModule, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Dish } from '../dish/dish.component';
-import { BrowserModule } from '@angular/platform-browser';
 import { DishDataUpdateService } from '../services/dish-data-update.service';
 
 @Component({
@@ -11,8 +10,6 @@ import { DishDataUpdateService } from '../services/dish-data-update.service';
 })
 
 export class AddDishComponent implements OnInit {
-  // @Output() addDish = new EventEmitter();
-
   addDishFormGroup: FormGroup = Object();
   name: FormControl = new FormControl("", Validators.required);
   country: FormControl = new FormControl("", Validators.required);

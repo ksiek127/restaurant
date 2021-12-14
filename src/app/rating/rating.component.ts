@@ -22,6 +22,5 @@ export class RatingComponent implements OnInit {
     this.dish.rating = Math.round(((this.dish.rating * this.dish.votes + score) / (this.dish.votes + 1)) * 100) / 100;
     this.dish.votes = this.dish.votes + 1;
     this.updateService.updateDish(this.dish);
-    // this.addRating.emit(this.dish.name);
   }
 }

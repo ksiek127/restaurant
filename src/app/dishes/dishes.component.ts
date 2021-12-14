@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { basketObject } from '../basket/basket.component';
 import { Dish } from '../dish/dish.component';
@@ -22,15 +23,21 @@ export class DishesComponent implements OnInit {
   pageNo = 1;
   itemsPerPage = 3;
   dishesToShow: Dish[];
-  prevButtonVisible = false;
-  nextButtonVisible = true;
+  prevButtonVisible: boolean;
+  nextButtonVisible: boolean;
 
-  constructor(public dbService: FirestoreService){
+  constructor(public dbService: FirestoreService, private route: ActivatedRoute){
     this.getDishList();
+    var pageNo = this.route.snapshot.paramMap.get('page');
+    if(pageNo != null){
+      this.pageNo = parseInt(pageNo);
+    }
+    if(this.pageNo > 1){
+      this.prevButtonVisible = true;
+    }
   }
 
   ngOnInit(){
-    this.updateBorders();
   }
 
   getDishList(){
@@ -39,6 +46,7 @@ export class DishesComponent implements OnInit {
     ).subscribe(dishes =>{
       this.dishList = dishes as Dish[];
       this.updatePage();
+      this.updateBorders();
     });
   }
 
@@ -78,19 +86,17 @@ export class DishesComponent implements OnInit {
   }
 
   updateBorders(){
-    let minPrice = this.dishList[0].price;
-    let maxPrice = this.dishList[0].price;
-    this.cheapest = this.dishList[0].name;
-    this.mostExpensive = this.dishList[0].name;
-    for(let d of this.dishList){
-      if(d.price < minPrice){
-        minPrice = d.price;
-        this.cheapest = d.name;
-      }else if(d.price > maxPrice){
-        maxPrice = d.price;
-        this.mostExpensive = d.name;
+    var cheapest = this.dishList[0];
+    var mostExpensive = this.dishList[0];
+    for(let dish of this.dishList){
+      if(dish.price < cheapest.price){
+        cheapest = dish;
+      }else if(dish.price > mostExpensive.price){
+        mostExpensive = dish;
       }
     }
+    this.cheapest = cheapest.name;
+    this.mostExpensive = mostExpensive.name;
   }
 
   prevPage(){
@@ -99,7 +105,6 @@ export class DishesComponent implements OnInit {
     if(this.pageNo == 1){
       this.prevButtonVisible = false;
     }
-    // this.isNextBtnVisible();
   }
 
   isNextBtnVisible(){

@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList, AngularFireObject} from '@angular/fire/compat/database';
-import { ref, set, getDatabase, get, update } from 'firebase/database';
+import { ref, set, getDatabase } from 'firebase/database';
 import { map } from 'rxjs/operators';
 import { Dish } from '../dish/dish.component';
 import { basketObject } from '../basket/basket.component';
-import { query } from '@angular/animations';
-import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -56,12 +54,16 @@ export class FirestoreService {
   }
 
   updateBasket(dish: Dish, howMany: number){
-    set(ref(getDatabase(), this.basketPath + '/' + dish.key), {
-      key: dish.key,
-      dishName: dish.name,
-      cost: dish.price,
-      howMany: howMany
-    });
+    if(howMany == 0){
+      this.basketRef.remove(dish.key);
+    }else{
+      set(ref(getDatabase(), this.basketPath + '/' + dish.key), {
+        key: dish.key,
+        dishName: dish.name,
+        cost: dish.price,
+        howMany: howMany
+      });
+    }
   }
 
   getDish(key: string){

@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { FirestoreService } from '../services/firestore.service';
 import { ReviewUpdateService } from '../services/review-update.service';
@@ -37,18 +36,14 @@ export interface Review{
   styleUrls: ['./dish.component.css']
 })
 export class DishComponent implements OnInit {
-  // @Input() dishData: Dish;
   @Input() cheapest: string;
   @Input() mostExpensive: string;
-  // @Input() currencySign: string;
-  // @Input() calculatedPrice: number;
   @Output() deleteDishEmitter = new EventEmitter();
   @Output() orderDishEmitter = new EventEmitter();
   @Output() resignEmitter = new EventEmitter();
 
   dishData: Dish;
   currency: string;
-  // dishList: Dish[] = [];
   orderBtnVisible = true;
   resignBtnVisible = false;
   unitsOrdered = 0;

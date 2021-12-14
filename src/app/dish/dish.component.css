@@ -1,9 +1,16 @@
+.dish-info-container{
+    margin-top: 5em;
+    display: flex;
+    justify-content: space-evenly;
+    color: navy;
+}
+
 .dish-container{
     border: 2px solid;
     text-align: center;
     width: 20vw;
+    height: 60vh;
     background-color: beige;
-    color: navy;
     margin: 2em 1em 1em 1em;
     box-shadow: lightsteelblue 0.5em 0.5em 1em 0.5em;
 }
@@ -36,7 +43,65 @@
     margin-bottom: 1em;
 }
 
+.gallery{
+    margin: 1em 0 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    width: 25vw;
+}
+
 .dish-img{
+    margin: 1em 0 1em 0;
     width: 20vw;
-    height: auto;
+    height: 25vh;
+    box-shadow: lightsteelblue 0.5em 0.5em 1em 0.5em;
+}
+
+.review-form{
+    width: 20vw;
+}
+
+.input-container{
+    margin-top: 2em;
+}
+
+.form-input{
+    border-width: 0.5em;
+    border-color: navy;
+}
+
+#nickname-input, #title-input, #content-input{
+    width: 20vw;
+    height: 3vh;
+}
+
+.submit-btn{
+    margin-top: 2em;
+    width: 5em;
+    background-color: navy;
+    color: beige;
+    border-width: 0.5em;
+    border-radius: 0.5em;
+}
+
+.submit-btn:hover{
+    cursor: pointer;
+}
+
+.review-form > h3{
+    font-size: 2em;
+    text-align: center;
+}
+
+.reviews-container{
+    color: navy;
+}
+
+.reviews-container > h2{
+    text-align: center;
+}
+
+.review{
+    width: 80vw;
+    margin: 3em auto 0 auto;
 }

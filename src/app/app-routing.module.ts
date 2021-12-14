@@ -10,7 +10,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 const routes: Routes = [
   { path: 'mainpage', component: MainpageComponent },
-  { path: 'menu', component: DishesComponent},
+  { path: 'menu/:page', component: DishesComponent},
   { path: 'add', component: AddDishComponent},
   { path: 'basket', component: BasketComponent},
   { path: 'dish/:id', component: DishComponent},

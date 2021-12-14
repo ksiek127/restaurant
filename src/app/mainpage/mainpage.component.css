@@ -2,6 +2,34 @@
     color: navy;
 }
 
+.main-container{
+    margin: 5em 0 0 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.contact-details{
+    margin: auto;
+    text-align: center;
+}
+
 .contact-details > ul{
     list-style: none;
+}
+
+.restaurant-img{
+    width: 60vw;
+    height: auto;
+    border-radius: 2em;
+    box-shadow: lightslategray 1em 1em 1em 0;
+}
+
+.sidebar{
+    width: 35wv;
+}
+
+.map-img{
+    width: 30vw;
+    border-radius: 1em;
+    box-shadow: lightslategray 1em 1em 1em 0;
 }

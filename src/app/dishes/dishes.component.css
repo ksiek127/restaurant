@@ -1,7 +1,55 @@
+.main-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: navy;
+    width: 95vw;
+}
+
+button{
+    padding: 0.5em;
+    color: navy;
+    background-color: beige;
+    border: none;
+    border-radius: 0.5em;
+    box-shadow: lightslategray 0.1em 0.1em 0.1em 0;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
 #dishes{
     grid-row: 1/2;
     grid-column: 1/2;
     display: flex;
-    width: 70vw;
+    width: 95vw;
     flex-wrap: wrap;
+}
+
+.page-nav-container{
+    margin: 3em 0 1em 3em;
+    display: flex;
+}
+
+.pagination-buttons{
+    display: flex;
+    justify-content: space-around;
+}
+
+.items-per-page{
+    margin: 0 0 0 3em;
+}
+
+.items-per-page-input{
+    width: 5em;
+}
+
+.apply-btn{
+    margin: 0 0 0 3em;
+}
+
+app-currency-switch{
+    color: navy;
+    margin: auto;
 }

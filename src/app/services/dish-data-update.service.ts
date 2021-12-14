@@ -17,7 +17,6 @@ export class DishDataUpdateService {
   addDish(dish: Dish){
     var newRef = this.dishesRef.push({...dish});
     var newKey = newRef.key;
-    // this.dishesRef.update(newKey, {key: newKey});
     set(ref(getDatabase(), this.dishesPath + '/' + newKey), {
       key: newKey,
       name: dish.name,

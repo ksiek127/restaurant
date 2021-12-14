@@ -36,7 +36,7 @@ import { MainpageComponent } from './mainpage/mainpage.component';
     PageNotFoundComponent,
     NavComponent,
     DishBasicComponent,
-    MainpageComponent
+    MainpageComponent,
   ],
   imports: [
     BrowserModule,

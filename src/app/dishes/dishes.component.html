@@ -1,12 +1,18 @@
-<app-currency-switch></app-currency-switch>
-<div class="pagination-buttons">
-  <button (click)="prevPage()" [style.visibility]="prevButtonVisible ? 'visible' : 'hidden'">Previous</button>
-  <button (click)="nextPage()" [style.visibility]="nextButtonVisible ? 'visible' : 'hidden'">Next</button>
-  Items per page: <input [(ngModel)]="itemsPerPage" type="number" min="1">
-  <button (click)="updatePage()">Apply</button>
-</div>
-<div id="dishes">
-  <ng-container *ngFor="let d of dishesToShow">
-    <app-dish-basic [dishData]="d" [cheapest]="cheapest" [mostExpensive]="mostExpensive" (orderDishEmitter)="addToBasket($event)" (resignEmitter)="removeFromBasket($event)" (deleteDishEmitter)="updateBorders()"></app-dish-basic>
-  </ng-container>
+<div class="main-container">
+  <div class="page-nav-container">
+    <div class="pagination-buttons">
+      <button [routerLink]="['/menu/' + (pageNo-1)]" (click)="prevPage()" [style.visibility]="prevButtonVisible ? 'visible' : 'hidden'">Previous</button>
+      <button [routerLink]="['/menu/' + (pageNo+1)]" (click)="nextPage()" [style.visibility]="nextButtonVisible ? 'visible' : 'hidden'">Next</button>
+      <div class="items-per-page">
+        Items per page: <input class="items-per-page-input" [(ngModel)]="itemsPerPage" type="number" min="1">
+        <button class="apply-btn" (click)="updatePage()">Apply</button>
+      </div>
+    </div>
+    <app-currency-switch></app-currency-switch>
+  </div>
+  <div id="dishes">
+    <ng-container *ngFor="let d of dishesToShow">
+      <app-dish-basic [dishData]="d" [cheapest]="cheapest" [mostExpensive]="mostExpensive" (orderDishEmitter)="addToBasket($event)" (resignEmitter)="removeFromBasket($event)" (deleteDishEmitter)="updateBorders()"></app-dish-basic>
+    </ng-container>
+  </div>
 </div>

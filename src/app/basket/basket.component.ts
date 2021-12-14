@@ -1,7 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { getDatabase, ref, set } from 'firebase/database';
+import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
-import { Dish } from '../dish/dish.component';
 import { FirestoreService } from '../services/firestore.service';
 
 export interface basketObject{
@@ -18,8 +16,6 @@ export interface basketObject{
 })
 
 export class BasketComponent implements OnInit {
-  // @Input() basket: basketObject[] = [];
-  // totalCost: number = 0;
   currency: string;
   basket: basketObject[];
 

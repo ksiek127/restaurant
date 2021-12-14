@@ -1,68 +1,76 @@
-<div class="dish-container" [style.border-color]="getBorderColor()">
-    <ul class="dish-details">
-        <li class="unavailable" [style.visibility]="noneLeft ? 'visible' : 'hidden'">currently unavailable</li>
-        <li class="name-country">{{dishData.name | uppercase}}, {{dishData.country | uppercase}}</li>
-        <li class="category">Category: {{dishData.category}}</li>
-        <li class="ingredients">Ingredients: {{dishData.ingredients}}</li>
-        <li class="meals-ordered" [style.background-color]="lastUnits ? 'orange' : 'beige'">Meals ordered: {{unitsOrdered}} / {{dishData.maxNo}}</li>
-        <li class="price">Price: {{calculatedPrice}} {{currency}}</li>
-        <li class="description">{{dishData.description}}</li>
-    </ul>
-    <div class="dish-buttons">
-        <button class="add-btn" (click)="orderDish()" [style.visibility]="orderBtnVisible ? 'visible' : 'hidden'">
-            +
-        </button>
-        <button class="remove-btn" (click)="removeOrderedDish()" [style.visibility]="resignBtnVisible ? 'visible' : 'hidden'">
-            -
-        </button>
+<div class="dish-info-container">
+    <form class="review-form" [formGroup]="reviewFormGroup" (ngSubmit)="onSubmit()">
+        <h3>Add review</h3>
+        <div class="input-container">
+            <label>Nickname: </label>
+            <br>
+            <input class="form-input" id="nickname-input" formControlName="nickname">
+            <br>
+            <div *ngIf="nickname.invalid && nickname.touched" class="alert">This field cannot be empty, the name must be unique</div>
+        </div>
+        <div class="input-container">
+            <label>Review title: </label>
+            <br>
+            <input class="form-input" id="title-input" formControlName="title">
+            <br>
+            <div *ngIf="title.invalid && title.touched" class="alert">This field cannot be empty</div>
+        </div>
+        <div class="input-container">
+            <label>Review: </label>
+            <br>
+            <input class="form-input" id="content-input" formControlName="reviewContent" minlength="50" maxlength="500">
+            <br>
+            <div *ngIf="reviewContent.invalid && reviewContent.touched" class="alert">Review should be between 50 and 500 characters</div>
+        </div>
+        <div class="input-container">
+            <label>Order date: </label>
+            <br>
+            <input class="form-input" id="date-input" formControlName="orderDate" type="date" [max]="maxDate">
+            <br>
+            <div *ngIf="orderDate.invalid && orderDate.touched" class="alert">Choose valid date</div>
+        </div>
+        <button class="submit-btn" type="submit" [disabled]="!reviewFormGroup.valid">Add</button>
+    </form>
+    <div class="dish-container" [style.border-color]="getBorderColor()">
+        <ul class="dish-details">
+            <li class="unavailable" [style.visibility]="noneLeft ? 'visible' : 'hidden'">currently unavailable</li>
+            <li class="name-country">{{dishData.name | uppercase}}, {{dishData.country | uppercase}}</li>
+            <li class="category">Category: {{dishData.category}}</li>
+            <li class="ingredients">Ingredients: {{dishData.ingredients}}</li>
+            <li class="meals-ordered" [style.background-color]="lastUnits ? 'orange' : 'beige'">Meals ordered: {{unitsOrdered}} / {{dishData.maxNo}}</li>
+            <li class="price">Price: {{calculatedPrice}} {{currency}}</li>
+            <li class="description">{{dishData.description}}</li>
+        </ul>
+        <div class="dish-buttons">
+            <button class="add-btn" (click)="orderDish()" [style.visibility]="orderBtnVisible ? 'visible' : 'hidden'">
+                +
+            </button>
+            <button class="remove-btn" (click)="removeOrderedDish()" [style.visibility]="resignBtnVisible ? 'visible' : 'hidden'">
+                -
+            </button>
+        </div>
+        <div class="rating-component">
+            <app-rating [dish]="dishData"></app-rating>
+        </div>
+        <div class="rating-score">
+            Rating: {{dishData.rating}}<br>
+            Votes: {{dishData.votes}}
+        </div>
     </div>
-    <div class="rating-component">
-        <app-rating [dish]="dishData"></app-rating>
-    </div>
-    <div class="rating-score">
-        Rating: {{dishData.rating}}<br>
-        Votes: {{dishData.votes}}
+    <div class="gallery">
+        <ng-container class="gallery-container" *ngFor="let photo of dishData.photos">
+            <img class="dish-img" [src]="photo" alt="błąd przy wczytywaniu zdjęcia">
+        </ng-container>
     </div>
 </div>
-<ng-container class="dish-img-container" *ngFor="let photo of dishData.photos">
-    <img class="dish-img" [src]="photo" alt="błąd przy wczytywaniu zdjęcia">
-</ng-container>
-<form class="review-form" [formGroup]="reviewFormGroup" (ngSubmit)="onSubmit()">
-    <div class="input-container">
-        <label>Nickname: </label>
-        <br>
-        <input class="form-input" id="nickname-input" formControlName="nickname">
-        <br>
-        <div *ngIf="nickname.invalid && nickname.touched" class="alert">This field cannot be empty, the name must be unique</div>
-    </div>
-    <div class="input-container">
-        <label>Review title: </label>
-        <br>
-        <input class="form-input" id="title-input" formControlName="title">
-        <br>
-        <div *ngIf="title.invalid && title.touched" class="alert">This field cannot be empty</div>
-    </div>
-    <div class="input-container">
-        <label>Review: </label>
-        <br>
-        <input class="form-input" id="content-input" formControlName="reviewContent" minlength="50" maxlength="500">
-        <br>
-        <div *ngIf="reviewContent.invalid && reviewContent.touched" class="alert">Review should be between 50 and 500 characters</div>
-    </div>
-    <div class="input-container">
-        <label>Order date: </label>
-        <br>
-        <input class="form-input" id="date-input" formControlName="orderDate" type="date" [max]="maxDate">
-        <br>
-        <div *ngIf="orderDate.invalid && orderDate.touched" class="alert">Choose valid date</div>
-    </div>
-    <button class="submit-btn" type="submit" [disabled]="!reviewFormGroup.valid">Add</button>
-</form>
-<ng-container class="reviews-container" *ngFor="let review of reviews">
-    <div *ngIf="review.dishKey == dishData.key">
-        <p>From: {{review.nickname}}</p>
-        <p *ngIf="review.orderDate">Order date: {{review.orderDate}}</p>
-        <p>Title: {{review.title}}</p>
-        <p>{{review.content}}</p>
-    </div>
-</ng-container>
+<div class="reviews-container">
+    <h2>Reviews: </h2>
+    <ng-container class="reviews-container" *ngFor="let review of reviews">
+        <div class="review" *ngIf="review.dishKey == dishData.key">
+            <p>From: {{review.nickname}}</p>
+            <p *ngIf="review.orderDate">Order date: {{review.orderDate}}</p>
+            <p>Title: {{review.title}}</p>
+            <p>{{review.content}}</p>
+        </div>
+    </ng-container>
+</div>

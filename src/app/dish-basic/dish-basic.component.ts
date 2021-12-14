@@ -12,8 +12,6 @@ export class DishBasicComponent implements OnInit {
   @Input() dishData: Dish;
   @Input() cheapest: string;
   @Input() mostExpensive: string;
-  // @Input() currencySign: string;
-  // @Input() calculatedPrice: number;
   @Output() deleteDishEmitter = new EventEmitter();
   @Output() orderDishEmitter = new EventEmitter();
   @Output() resignEmitter = new EventEmitter();
