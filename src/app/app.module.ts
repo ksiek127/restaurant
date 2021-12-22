@@ -20,6 +20,8 @@ import { AngularFireModule } from "@angular/fire/compat";
 import { environment } from '../environments/environment'; 
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { MainpageComponent } from './mainpage/mainpage.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -37,6 +39,8 @@ import { MainpageComponent } from './mainpage/mainpage.component';
     NavComponent,
     DishBasicComponent,
     MainpageComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

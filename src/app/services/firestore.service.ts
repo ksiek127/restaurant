@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { Dish } from '../dish/dish.component';
 import { basketObject } from '../basket/basket.component';
 import { Observable } from 'rxjs';
+import { User } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,11 @@ export class FirestoreService {
   dishesPath = 'Dishes';
   basketPath = 'Basket';
   currencyPath = 'Currency';
+  usersPath = 'Users';
   dishesRef: AngularFireList<Dish>;
   basketRef: AngularFireList<basketObject>;
   currencyRef: AngularFireObject<string>;
+  usersRef: AngularFireList<User>;
   dishes: Dish[] = [];
 
   constructor(private db: AngularFireDatabase) {

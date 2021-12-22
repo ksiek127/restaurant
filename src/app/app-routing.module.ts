@@ -5,8 +5,10 @@ import { AppComponent } from './app.component';
 import { BasketComponent } from './basket/basket.component';
 import { DishComponent } from './dish/dish.component';
 import { DishesComponent } from './dishes/dishes.component';
+import { LoginComponent } from './login/login.component';
 import { MainpageComponent } from './mainpage/mainpage.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   { path: 'mainpage', component: MainpageComponent },
@@ -14,6 +16,8 @@ const routes: Routes = [
   { path: 'add', component: AddDishComponent},
   { path: 'basket', component: BasketComponent},
   { path: 'dish/:id', component: DishComponent},
+  { path: 'login', component: LoginComponent},
+  { path: 'register', component: RegisterComponent},
   { path: '', component: MainpageComponent},
   { path: '**', component: PageNotFoundComponent}
 ];

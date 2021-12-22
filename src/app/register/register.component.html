@@ -1,0 +1,17 @@
+<h1>Register</h1>
+<form class="registration-form" [formGroup]="registrationFormGroup" (ngSubmit)="onSubmit()">
+    <div class="input-container">
+        <label>email: </label>
+        <br>
+        <input class="form-input" id="login-input" [formControl]="login" type="email">
+    </div>
+    <div class="input-container">
+        <label>password: </label>
+        <br>
+        <input class="form-input" id="password-input" [formControl]="password">
+    </div>
+    <a routerLink="/login" routerLinkActive="active">
+        <button class="submit-btn" type="submit" click="onSubmit()" [disabled]="!registrationFormGroup.valid">Register</button>
+    </a>
+</form>
+<p>Already have an account? <a routerLink="/login" routerLinkActive="active">login</a></p>
