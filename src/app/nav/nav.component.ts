@@ -8,12 +8,22 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-  logged: Observable<any>;
+  isLogged = false;
+  email = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {
+    this.authService.getLogged().subscribe(auth => {
+      if(auth){
+        this.isLogged = true;
+        this.email = auth.email;
+      }else{
+        this.isLogged = false;
+        this.email = '';
+      }
+    });
+   }
 
   ngOnInit(): void {
-    this.logged = this.authService.getLogged();
   }
 
   logout(){

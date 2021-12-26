@@ -1,16 +1,16 @@
 <nav>
     <ul class="navbar">
-        <li [style.visibility]="logged ? 'hidden' : 'visible'">
+        <li *ngIf="!isLogged">
           <a routerLink="/login" routerLinkActive="active">Login</a>
         </li>
-        <li [style.visibility]="logged ? 'hidden' : 'visible'">
+        <li *ngIf="!isLogged">
           <a routerLink="/register" routerLinkActive="active">Register</a>
         </li>
-        <li [style.visibility]="logged ? 'visible' : 'hidden'">
-          Logged as: {{logged}}
+        <li *ngIf="isLogged">
+          <a routerLink="/persistence" routerLinkActive="active">Logged as: {{email}}</a>
         </li>
-        <li [style.visibility]="logged ? 'visible' : 'hidden'">
-          <a routerLink="/mainpage" routerLinkActive="active"><button click="logout()">Log out</button></a>
+        <li *ngIf="isLogged">
+          <button (click)="logout()">Log out</button>
         </li>
         <li class="nav-item">
           <a routerLink="/mainpage" routerLinkActive="active">Main Page</a>

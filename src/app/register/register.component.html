@@ -10,8 +10,6 @@
         <br>
         <input class="form-input" id="password-input" [formControl]="password">
     </div>
-    <a routerLink="/login" routerLinkActive="active">
-        <button class="submit-btn" type="submit" click="onSubmit()" [disabled]="!registrationFormGroup.valid">Register</button>
-    </a>
+    <button class="submit-btn" type="submit" click="onSubmit()" [disabled]="!registrationFormGroup.valid">Register</button>
 </form>
 <p>Already have an account? <a routerLink="/login" routerLinkActive="active">login</a></p>

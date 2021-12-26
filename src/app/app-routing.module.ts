@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { MainpageComponent } from './mainpage/mainpage.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RegisterComponent } from './register/register.component';
+import { SwitchPersistenceComponent } from './switch-persistence/switch-persistence.component';
 
 const routes: Routes = [
   { path: 'mainpage', component: MainpageComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'dish/:id', component: DishComponent},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
+  { path: 'persistence', component: SwitchPersistenceComponent},
   { path: '', component: MainpageComponent},
   { path: '**', component: PageNotFoundComponent}
 ];

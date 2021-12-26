@@ -22,6 +22,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { MainpageComponent } from './mainpage/mainpage.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { SwitchPersistenceComponent } from './switch-persistence/switch-persistence.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { RegisterComponent } from './register/register.component';
     MainpageComponent,
     LoginComponent,
     RegisterComponent,
+    SwitchPersistenceComponent,
   ],
   imports: [
     BrowserModule,
