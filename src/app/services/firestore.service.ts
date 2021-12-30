@@ -14,7 +14,7 @@ export class FirestoreService {
   dishesPath = 'Dishes';
   basketPath = 'Basket';
   currencyPath = 'Currency';
-  usersPath = 'Users';
+  usersPath = 'users';
   dishesRef: AngularFireList<Dish>;
   basketRef: AngularFireList<basketObject>;
   currencyRef: AngularFireObject<string>;
@@ -76,5 +76,14 @@ export class FirestoreService {
 
   getCurrency(){
     return this.currencyRef;
+  }
+
+  getUsers(){
+    return this.usersRef;
+  }
+
+  getUser(email: string){
+    var user: Observable<any> = this.db.object(this.usersPath + '/' + email.replace(/\./g, '')).valueChanges();
+    return user;
   }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { FirestoreService } from '../services/firestore.service';
 
 @Component({
   selector: 'app-nav',
@@ -10,15 +12,20 @@ import { AuthService } from '../services/auth.service';
 export class NavComponent implements OnInit {
   isLogged = false;
   email = '';
+  role = 'guest';
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private dbService: FirestoreService, private router: Router) {
     this.authService.getLogged().subscribe(auth => {
       if(auth){
         this.isLogged = true;
         this.email = auth.email;
+        this.dbService.getUser(auth.email).subscribe(user => {
+          this.role = user.role;
+        });
       }else{
         this.isLogged = false;
         this.email = '';
+        this.role = 'guest';
       }
     });
    }
@@ -28,5 +35,6 @@ export class NavComponent implements OnInit {
 
   logout(){
     this.authService.logout();
+    this.router.navigate(['mainpage']);
   }
 }

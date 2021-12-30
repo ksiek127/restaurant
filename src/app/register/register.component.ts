@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(){
-    this.auth.register(this.login.value, this.password.value).catch(err => console.log(err.message));
+    this.auth.register(this.login.value, this.password.value);
     this.router.navigate(['/mainpage']);
   }
 }
