@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { basketObject } from '../basket/basket.component';
 import { Dish } from '../dish/dish.component';
+import { AuthService } from '../services/auth.service';
 import { FirestoreService } from '../services/firestore.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class DishesComponent implements OnInit {
   dishList: Dish[] = [];
   mealsOrdered = 0;
   totalCost = 0;
-  basket: basketObject[] = [];
+  basket: basketObject[];
   dish: Dish;
   mostExpensive: string;
   cheapest: string;
@@ -26,7 +27,14 @@ export class DishesComponent implements OnInit {
   prevButtonVisible: boolean;
   nextButtonVisible: boolean;
 
-  constructor(public dbService: FirestoreService, private route: ActivatedRoute){
+  constructor(public dbService: FirestoreService, private route: ActivatedRoute, private authService: AuthService){
+    this.dbService.getUser(this.authService.getEmail()).pipe(
+      take(1),
+      map(user => user.basket),
+      tap(basket => {
+        this.basket = basket;
+      })
+    )
     this.getDishList();
     var pageNo = this.route.snapshot.paramMap.get('page');
     if(pageNo != null){
@@ -54,22 +62,27 @@ export class DishesComponent implements OnInit {
     this.mealsOrdered++;
     this.totalCost += dish.price;
     let inBasket = false;
+    var howMany = 1;
+    var voted = false;
     for(let item of this.basket){
       if(item.dishName == dish.name){
         item.howMany++;
         item.cost += dish.price;
         inBasket = true;
+        howMany = item.howMany;
+        voted = item.voted;
         break;
       }
     }
-    if(!inBasket){
-      this.basket.push({
-        key: "aaa",
-        dishName: dish.name,
-        cost: dish.price,
-        howMany: 1
-      })
-    }
+    // if(!inBasket){
+    //   this.basket.push({
+    //     dishName: dish.name,
+    //     cost: dish.price,
+    //     howMany: 1,
+    //     voted: false
+    //   })
+    // }
+    this.dbService.updateBasket(dish, howMany, voted, this.authService.getEmail());
   }
 
   removeFromBasket(dish: Dish){

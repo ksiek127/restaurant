@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { take, map, tap } from 'rxjs';
 import { Dish } from '../dish/dish.component';
+import { AuthService } from '../services/auth.service';
 import { FirestoreService } from '../services/firestore.service';
 
 @Component({
@@ -25,7 +27,7 @@ export class DishBasicComponent implements OnInit {
   currency: string;
   calculatedPrice: number;
 
-  constructor(private dbService: FirestoreService) {
+  constructor(private dbService: FirestoreService, private authService: AuthService) {
     this.getCurrency();
    }
 
@@ -74,7 +76,16 @@ export class DishBasicComponent implements OnInit {
       if(this.dishData.maxNo == this.unitsOrdered){
         this.noneLeft = true;
       }
-      this.dbService.updateBasket(this.dishData, this.unitsOrdered);
+      // var voted: boolean;
+      this.dbService.getUser(this.authService.getEmail()).pipe(
+        take(1),
+        map(user => user.basket),
+        tap(basket => {
+          this.dbService.updateBasket(this.dishData, this.unitsOrdered, basket.voted, this.authService.getEmail());
+          // this.dbService.updateBasket(this.dish, basket.howMany, true);
+        })
+      )
+      // this.dbService.updateBasket(this.dishData, this.unitsOrdered, voted);
     }
   }
 
@@ -90,7 +101,15 @@ export class DishBasicComponent implements OnInit {
       }
       this.checkIfLastUnits();
       this.noneLeft = false;
-      this.dbService.updateBasket(this.dishData, this.unitsOrdered);
+      // this.dbService.updateBasket(this.dishData, this.unitsOrdered);
+      this.dbService.getUser(this.authService.getEmail()).pipe(
+        take(1),
+        map(user => user.basket),
+        tap(basket => {
+          this.dbService.updateBasket(this.dishData, this.unitsOrdered, basket.voted, this.authService.getEmail());
+          // this.dbService.updateBasket(this.dish, basket.howMany, true);
+        })
+      )
     }
   }
 

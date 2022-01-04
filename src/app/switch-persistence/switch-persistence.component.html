@@ -1,8 +1,10 @@
-<h2>Persistence type: </h2>
-<input type="radio" name="persistence-type" id="local" (click)="changePersistence('local')">
-<label for="local">Local</label>
-<input type="radio" name="persistence-type" id="session" (click)="changePersistence('session')">
-<label for="session">Session</label>
-<input type="radio" name="persistence-type" id="none" (click)="changePersistence('none')">
-<label for="none">None</label>
-<a [routerLink]="['/users']" routerLinkActive="active">Show registered users</a>
+<div class="persistence-switch">
+    <h2>Persistence type: </h2>
+    <input type="radio" name="persistence-type" id="local" (click)="changePersistence('local')">
+    <label for="local">Local</label>
+    <input type="radio" name="persistence-type" id="session" (click)="changePersistence('session')">
+    <label for="session">Session</label>
+    <input type="radio" name="persistence-type" id="none" (click)="changePersistence('none')">
+    <label for="none">None</label>
+</div>
+<a [routerLink]="['/registered-users']" routerLinkActive="active">Show registered users</a>

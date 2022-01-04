@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs';
+import { map, take, tap } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 import { FirestoreService } from '../services/firestore.service';
 
 export interface basketObject{
-  key: string,
   dishName: string,
   cost: number,
-  howMany: number
+  howMany: number,
+  voted: false
 }
 
 @Component({
@@ -19,7 +20,7 @@ export class BasketComponent implements OnInit {
   currency: string;
   basket: basketObject[];
 
-  constructor(private dbService: FirestoreService) {
+  constructor(private dbService: FirestoreService, private authService: AuthService) {
     this.getBasket();
     this.getCurrency();
    }
@@ -28,11 +29,13 @@ export class BasketComponent implements OnInit {
   }
 
   getBasket(){
-    this.dbService.getBasket().snapshotChanges().pipe(
-      map(changes => changes.map(c => ({key : c.payload.key, ...c.payload.val()})))
-    ).subscribe(basket =>{
-      this.basket = basket as basketObject[];
-    });
+    this.dbService.getUser(this.authService.getEmail()).pipe(
+      take(1),
+      map(user => user.basket),
+      tap(basket => {
+        this.basket = basket;
+      })
+    )
   }
 
   getTotalCost(){

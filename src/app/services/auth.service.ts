@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { RouterLink } from '@angular/router';
+import { AngularFireDatabase, AngularFireObject } from '@angular/fire/compat/database';
 import { getDatabase, ref, set } from 'firebase/database';
-import { Observable } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
+import { FirestoreService } from './firestore.service';
+import { basketObject } from '../basket/basket.component';
 
 export interface User{
   email: string;
   password: string;
-  role: string;
+  admin: boolean;
+  manager: boolean;
+  customer: boolean;
 }
 
 @Injectable({
@@ -16,12 +19,44 @@ export interface User{
 })
 export class AuthService {
   authState: Observable<any>;
+  email = '';
+  guest: boolean;
+  customer: boolean;
+  manager: boolean;
+  admin: boolean;
 
-  constructor(private fireAuth: AngularFireAuth, private db: AngularFireDatabase) { 
+  constructor(private fireAuth: AngularFireAuth, private db: AngularFireDatabase, private dbService: FirestoreService) { 
+    // .snapshotChanges().pipe(
+    //   map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() })))
+    // ).subscribe(reviews =>{
+    //   this.reviews = reviews as Review[];
+    // });
     this.authState = fireAuth.authState;
-    this.authState.subscribe( auth => {
-      console.log(auth);
+    fireAuth.authState.subscribe( user => {
+      console.log(user);
+      if(user && user.email){
+        this.email = user.email;
+      }else{
+        this.email = '';
+      }
+      console.log(this.email);
     });
+    this.getUserData();
+  }
+
+  getUserData(){
+    this.dbService.getUser(this.email).subscribe(user => {
+      this.customer = user.customer;
+      this.manager = user.manager;
+      this.admin = user.admin;
+      if(!user.customer && !user.manager && !user.admin){
+        this.guest = true;
+      }
+    });
+  }
+
+  isAdmin(){
+    return this.admin;
   }
 
   login(email: string, password: string) {
@@ -29,17 +64,20 @@ export class AuthService {
   }
 
   register(email: string, password: string) {
-    return this.fireAuth.createUserWithEmailAndPassword(email, password);
-    // var id;
-    // this.fireAuth.createUserWithEmailAndPassword(email, password)
-    // .then( credentials => {
-    //   id = credentials.user?.uid;
-    // });
-    // set(ref(getDatabase(), 'users/' + email.replace(/\./g, '')), {
-    //   email: email,
-    //   password: password,
-    //   role: "customer"
-    // });
+    var id;
+    this.fireAuth.createUserWithEmailAndPassword(email, password)
+    .then( credentials => {
+      id = credentials.user?.uid;
+    });
+    set(ref(getDatabase(), 'users/' + email.replace(/\./g, '')), {
+      email: email,
+      password: password,
+      customer: true,
+      manager: false,
+      admin: false,
+      banned: false,
+      basket: []
+    });
   }
 
   logout() {
@@ -50,8 +88,12 @@ export class AuthService {
     this.fireAuth.setPersistence(s);
   }
 
-  getLogged() {
-    return this.authState; 
+  getLogged(): Observable<User> {
+    return this.authState;
+  }
+
+  getEmail(){
+    return this.email;
   }
 
   // getCurrentUser(){

@@ -20,7 +20,7 @@ export class NavComponent implements OnInit {
         this.isLogged = true;
         this.email = auth.email;
         this.dbService.getUser(auth.email).subscribe(user => {
-          this.role = user.role;
+          this.role = "guest";
         });
       }else{
         this.isLogged = false;

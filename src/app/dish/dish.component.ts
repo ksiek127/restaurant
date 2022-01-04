@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
+import { map, take, tap } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 import { FirestoreService } from '../services/firestore.service';
 import { ReviewUpdateService } from '../services/review-update.service';
 
@@ -60,7 +61,7 @@ export class DishComponent implements OnInit {
   orderDate: FormControl = new FormControl("");
   newReview: Review;
 
-  constructor(private route: ActivatedRoute, private dbService: FirestoreService, private reviewUpdateService: ReviewUpdateService) {
+  constructor(private route: ActivatedRoute, private dbService: FirestoreService, private reviewUpdateService: ReviewUpdateService, private authService: AuthService) {
     this.newReview = {
       key: "",
       nickname: "",
@@ -130,7 +131,16 @@ export class DishComponent implements OnInit {
       if(this.dishData.maxNo == this.unitsOrdered){
         this.noneLeft = true;
       }
-      this.dbService.updateBasket(this.dishData, this.unitsOrdered);
+      // var voted: boolean;
+      this.dbService.getUser(this.authService.getEmail()).pipe(
+        take(1),
+        map(user => user.basket),
+        tap(basket => {
+          this.dbService.updateBasket(this.dishData, this.unitsOrdered, basket.voted, this.authService.getEmail());
+          // this.dbService.updateBasket(this.dish, basket.howMany, true);
+        })
+      )
+      // this.dbService.updateBasket(this.dishData, this.unitsOrdered, voted);
     }
   }
 
@@ -146,7 +156,15 @@ export class DishComponent implements OnInit {
       }
       this.checkIfLastUnits();
       this.noneLeft = false;
-      this.dbService.updateBasket(this.dishData, this.unitsOrdered);
+      // this.dbService.updateBasket(this.dishData, this.unitsOrdered);
+      this.dbService.getUser(this.authService.getEmail()).pipe(
+        take(1),
+        map(user => user.basket),
+        tap(basket => {
+          this.dbService.updateBasket(this.dishData, this.unitsOrdered, basket.voted, this.authService.getEmail());
+          // this.dbService.updateBasket(this.dish, basket.howMany, true);
+        })
+      )
     }
   }
 
