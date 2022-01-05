@@ -77,12 +77,25 @@ export class DishBasicComponent implements OnInit {
         this.noneLeft = true;
       }
       // var voted: boolean;
-      this.dbService.getUser(this.authService.getEmail()).pipe(
+      var email = this.authService.getEmail();
+      this.dbService.getUser(email).pipe(
         take(1),
         map(user => user.basket),
         tap(basket => {
           this.dbService.updateBasket(this.dishData, this.unitsOrdered, basket.voted, this.authService.getEmail());
           // this.dbService.updateBasket(this.dish, basket.howMany, true);
+        })
+      )
+      this.dbService.getOrderedDishesCount(email).pipe(
+        take(1),
+        map(count => {
+          this.dbService.updateDishesCount(count + 1, email);
+        })
+      )
+      this.dbService.getTotalCost(email).pipe(
+        take(1),
+        map(cost => {
+          this.dbService.updateTotalCost(cost + this.dishData.price, email);
         })
       )
       // this.dbService.updateBasket(this.dishData, this.unitsOrdered, voted);

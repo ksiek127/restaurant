@@ -12,6 +12,10 @@ export interface User{
   admin: boolean;
   manager: boolean;
   customer: boolean;
+  banned: boolean;
+  basket: basketObject[];
+  totalCost: number;
+  orderedDishes: number;
 }
 
 @Injectable({
@@ -72,11 +76,13 @@ export class AuthService {
     set(ref(getDatabase(), 'users/' + email.replace(/\./g, '')), {
       email: email,
       password: password,
-      customer: true,
+      customer: false,
       manager: false,
-      admin: false,
+      admin: true,
       banned: false,
-      basket: []
+      basket: [],
+      totalCost: 0,
+      orderedDishes: 0
     });
   }
 

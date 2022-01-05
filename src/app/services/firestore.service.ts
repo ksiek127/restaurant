@@ -42,9 +42,25 @@ export class FirestoreService {
     this.dishesRef.remove(key);
   }
 
-  // getBasket(){
-  //   return this.basketRef;
-  // }
+  getBasket(email: string){
+    var basketPath = this.usersPath + '/' + email.replace(/\./g, '') + '/basket';
+    var basketRef = this.db.list(basketPath);
+    var basket: Observable<any> = basketRef.valueChanges();
+    return basket;
+  }
+
+  getTotalCost(email: string){
+    var costPath = this.usersPath + '/' + email.replace(/\./g, '') + '/totalCost';
+    var costRef = this.db.object(costPath);
+    var cost: Observable<any> = costRef.valueChanges();
+    return cost;
+  }
+
+  getOrderedDishesCount(email: string){
+    var countPath = this.usersPath + '/' + email.replace(/\./g, '') + '/orderedDishes';
+    var count: Observable<any> = this.db.object(countPath).valueChanges();
+    return count;
+  }
 
   removeFromBasket(key: string, email: string){
     var basketPath = this.usersPath + '/' + email.replace(/\./g, '') + '/basket';
@@ -84,6 +100,90 @@ export class FirestoreService {
   getUser(email: string){
     var user: Observable<any> = this.db.object(this.usersPath + '/' + email.replace(/\./g, '')).valueChanges();
     return user;
+  }
+
+  updateDishesCount(count: number, email: string){
+    set(ref(getDatabase(), 'users/' + email.replace(/\./g, '')), {
+      orderedDishes: count
+    });
+  }
+
+  updateTotalCost(cost: number, email: string){
+    set(ref(getDatabase(), 'users/' + email.replace(/\./g, '') + '/orderedDishes'), {
+      cost
+    });
+  }
+
+  makeAdmin(user: User){
+    var basket: basketObject[] = [];
+    if(user.basket){
+      basket = user.basket;
+    }
+    set(ref(getDatabase(), 'users/' + user.email.replace(/\./g, '')), {
+      email: user.email,
+      password: user.password,
+      customer: user.customer,
+      manager: user.manager,
+      admin: true,
+      banned: user.banned,
+      basket: basket,
+      totalCost: user.totalCost,
+      orderedDishes: user.orderedDishes
+    });
+  }
+
+  makeManager(user: User){
+    var basket: basketObject[] = [];
+    if(user.basket){
+      basket = user.basket;
+    }
+    set(ref(getDatabase(), 'users/' + user.email.replace(/\./g, '')), {
+      email: user.email,
+      password: user.password,
+      customer: user.customer,
+      manager: true,
+      admin: user.admin,
+      banned: user.banned,
+      basket: basket,
+      totalCost: user.totalCost,
+      orderedDishes: user.orderedDishes
+    });
+  }
+
+  ban(user: User){
+    var basket: basketObject[] = [];
+    if(user.basket){
+      basket = user.basket;
+    }
+    set(ref(getDatabase(), 'users/' + user.email.replace(/\./g, '')), {
+      email: user.email,
+      password: user.password,
+      customer: user.customer,
+      manager: user.manager,
+      admin: user.admin,
+      banned: true,
+      basket: basket,
+      totalCost: user.totalCost,
+      orderedDishes: user.orderedDishes
+    });
+  }
+
+  unban(user: User){
+    var basket: basketObject[] = [];
+    if(user.basket){
+      basket = user.basket;
+    }
+    set(ref(getDatabase(), 'users/' + user.email.replace(/\./g, '')), {
+      email: user.email,
+      password: user.password,
+      customer: user.customer,
+      manager: user.manager,
+      admin: user.admin,
+      banned: false,
+      basket: basket,
+      totalCost: user.totalCost,
+      orderedDishes: user.orderedDishes
+    });
   }
 
   // getUserAsObject(email: string){

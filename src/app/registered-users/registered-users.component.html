@@ -1,4 +1,7 @@
 <ng-container *ngFor="let user of users">
     {{user.email}}
-    <button>Ban</button>
+    <button (click)="makeManager(user)">make manager</button>
+    <button (click)="makeAdmin(user)">make admin</button>
+    <button (click)="ban(user)">ban</button>
+    <button (click)="unban(user)">unban</button><br><br>
 </ng-container>

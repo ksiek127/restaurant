@@ -1,10 +1,10 @@
 <div class="main-container">
     <h1 class="basket-header">Basket</h1>
     <ul class="meals">
-        <li *ngFor="let item of basket">{{item.dishName}}: {{item.howMany}}x</li>
+        <li *ngFor="let item of basket | async">{{item.dishName}}: {{item.howMany}}x</li>
     </ul>
     <div class="summary">
-        Number of ordered dishes: {{orderedDishesCount()}}<br>
-        Total cost: {{getTotalCost()}} {{currency}}
+        Number of ordered dishes: {{orderedDishes | async}}<br>
+        Total cost: {{totalCost | async}} {{currency}}
     </div>
 </div>

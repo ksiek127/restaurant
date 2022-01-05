@@ -26,7 +26,19 @@ export class RegisteredUsersComponent implements OnInit {
     });
   }
 
+  makeManager(user: User){
+    this.dbService.makeManager(user);
+  }
+
+  makeAdmin(user: User){
+    this.dbService.makeAdmin(user);
+  }
+
   ban(user: User){
-    ;
+    this.dbService.ban(user);
+  }
+
+  unban(user: User){
+    this.dbService.unban(user);
   }
 }

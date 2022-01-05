@@ -15,7 +15,7 @@ export class DishesComponent implements OnInit {
   dishList: Dish[] = [];
   mealsOrdered = 0;
   totalCost = 0;
-  basket: basketObject[];
+  basket: basketObject[] = [];
   dish: Dish;
   mostExpensive: string;
   cheapest: string;

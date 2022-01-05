@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { map, take, tap } from 'rxjs';
+import { map, Observable, of, take, tap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { FirestoreService } from '../services/firestore.service';
 
@@ -18,42 +18,40 @@ export interface basketObject{
 
 export class BasketComponent implements OnInit {
   currency: string;
-  basket: basketObject[];
+  basket: Observable<basketObject[]>;
+  totalCost: Observable<number>;
+  orderedDishes: Observable<number>;
 
   constructor(private dbService: FirestoreService, private authService: AuthService) {
-    this.getBasket();
+    // this.getBasket();
+    // this.dbService.getUser(this.authService.getEmail()).pipe(
+    //   take(1),
+    //   map(user => user.basket),
+    //   tap(basket => {
+    //     this.basket = basket;
+    //   })
+    // )
+    this.basket = this.dbService.getBasket(this.authService.getEmail());
+    // this.getTotalCost();
+    this.totalCost = this.dbService.getTotalCost(this.authService.getEmail());
+    this.orderedDishes = this.dbService.getOrderedDishesCount(this.authService.getEmail());
     this.getCurrency();
    }
 
   ngOnInit(): void {
   }
 
-  getBasket(){
+  orderedDishesCount(){
+    var counter = 0;
     this.dbService.getUser(this.authService.getEmail()).pipe(
       take(1),
       map(user => user.basket),
       tap(basket => {
-        this.basket = basket;
+        for(var b of basket){
+          counter += b.howMany;
+        }
       })
     )
-  }
-
-  getTotalCost(){
-    var totalCost = 0;
-    for(var b of this.basket){
-      totalCost += b.cost * b.howMany;
-    }
-    if(this.currency == "€"){
-      totalCost *= 0.88;
-    }
-    return totalCost;
-  }
-
-  orderedDishesCount(){
-    var counter = 0;
-    for(var b of this.basket){
-      counter += b.howMany;
-    }
     return counter;
   }
 

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddDishComponent } from './add-dish/add-dish.component';
 import { BasketComponent } from './basket/basket.component';
-import { DeleteDishComponent } from './delete-dish/delete-dish.component';
 import { DishComponent } from './dish/dish.component';
 import { DishesComponent } from './dishes/dishes.component';
 import { AdminGuard } from './guard/admin.guard';
@@ -18,14 +17,13 @@ import { SwitchPersistenceComponent } from './switch-persistence/switch-persiste
 const routes: Routes = [
   { path: 'mainpage', component: MainpageComponent },
   { path: 'menu/:page', component: DishesComponent},
-  { path: 'delete-dish/:id', component: DeleteDishComponent},
-  { path: 'add', component: AddDishComponent},
+  { path: 'add', component: AddDishComponent, canActivate: [ManagerGuard, AdminGuard]},
   { path: 'basket', component: BasketComponent, canActivate: [AuthGuard]},
   { path: 'dish/:id', component: DishComponent, canActivate: [AuthGuard]},
   { path: 'registered-users', component: RegisteredUsersComponent, canActivate: [AdminGuard]},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
-  { path: 'persistence', component: SwitchPersistenceComponent},
+  { path: 'persistence', component: SwitchPersistenceComponent, canActivate: [AdminGuard]},
   { path: '', component: MainpageComponent},
   { path: '**', component: PageNotFoundComponent}
 ];

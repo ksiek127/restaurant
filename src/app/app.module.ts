@@ -23,7 +23,6 @@ import { MainpageComponent } from './mainpage/mainpage.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { SwitchPersistenceComponent } from './switch-persistence/switch-persistence.component';
-import { DeleteDishComponent } from './delete-dish/delete-dish.component';
 import { RegisteredUsersComponent } from './registered-users/registered-users.component';
 import { BanComponent } from './ban/ban.component';
 
@@ -46,7 +45,6 @@ import { BanComponent } from './ban/ban.component';
     LoginComponent,
     RegisterComponent,
     SwitchPersistenceComponent,
-    DeleteDishComponent,
     RegisteredUsersComponent,
     BanComponent,
   ],
