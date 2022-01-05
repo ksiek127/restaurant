@@ -8,7 +8,6 @@ import { FirestoreService } from '../services/firestore.service';
   styleUrls: ['./currency-switch.component.css']
 })
 export class CurrencySwitchComponent implements OnInit {
-  // @Output() currencyEmitter = new EventEmitter();
 
   constructor(private db: FirestoreService) { }
 
@@ -16,7 +15,6 @@ export class CurrencySwitchComponent implements OnInit {
   }
 
   updateCurrency(currency: string){
-    // this.currencyEmitter.emit(currency);
     this.db.updateCurrency(currency);
   }
 

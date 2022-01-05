@@ -74,14 +74,6 @@ export class DishesComponent implements OnInit {
         break;
       }
     }
-    // if(!inBasket){
-    //   this.basket.push({
-    //     dishName: dish.name,
-    //     cost: dish.price,
-    //     howMany: 1,
-    //     voted: false
-    //   })
-    // }
     this.dbService.updateBasket(dish, howMany, voted, this.authService.getEmail());
   }
 

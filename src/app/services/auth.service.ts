@@ -30,11 +30,6 @@ export class AuthService {
   admin: boolean;
 
   constructor(private fireAuth: AngularFireAuth, private db: AngularFireDatabase, private dbService: FirestoreService) { 
-    // .snapshotChanges().pipe(
-    //   map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() })))
-    // ).subscribe(reviews =>{
-    //   this.reviews = reviews as Review[];
-    // });
     this.authState = fireAuth.authState;
     fireAuth.authState.subscribe( user => {
       console.log(user);
@@ -101,8 +96,4 @@ export class AuthService {
   getEmail(){
     return this.email;
   }
-
-  // getCurrentUser(){
-  //   return this.fireAuth.currentUser;
-  // }
 }

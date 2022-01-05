@@ -76,14 +76,12 @@ export class DishBasicComponent implements OnInit {
       if(this.dishData.maxNo == this.unitsOrdered){
         this.noneLeft = true;
       }
-      // var voted: boolean;
       var email = this.authService.getEmail();
       this.dbService.getUser(email).pipe(
         take(1),
         map(user => user.basket),
         tap(basket => {
           this.dbService.updateBasket(this.dishData, this.unitsOrdered, basket.voted, this.authService.getEmail());
-          // this.dbService.updateBasket(this.dish, basket.howMany, true);
         })
       )
       this.dbService.getOrderedDishesCount(email).pipe(
@@ -98,7 +96,6 @@ export class DishBasicComponent implements OnInit {
           this.dbService.updateTotalCost(cost + this.dishData.price, email);
         })
       )
-      // this.dbService.updateBasket(this.dishData, this.unitsOrdered, voted);
     }
   }
 
@@ -114,31 +111,15 @@ export class DishBasicComponent implements OnInit {
       }
       this.checkIfLastUnits();
       this.noneLeft = false;
-      // this.dbService.updateBasket(this.dishData, this.unitsOrdered);
       this.dbService.getUser(this.authService.getEmail()).pipe(
         take(1),
         map(user => user.basket),
         tap(basket => {
           this.dbService.updateBasket(this.dishData, this.unitsOrdered, basket.voted, this.authService.getEmail());
-          // this.dbService.updateBasket(this.dish, basket.howMany, true);
         })
       )
     }
   }
-
-  // deleteDish(name: string){
-  //   for(let i=0; i<this.dishList.length; i++){
-  //     if(this.dishList[i].name == name){
-  //       this.dishList.splice(i, 1);
-  //       while(this.unitsOrdered > 0){
-  //         this.removeOrderedDish();
-  //       }
-  //       this.dishData.show = false;
-  //       this.deleteDishEmitter.emit(name);
-  //     }
-  //   }
-  //   this.getBorderColor();
-  // }
 
   getBorderColor(){
     if(this.dishData.name == this.cheapest){
@@ -155,6 +136,5 @@ export class DishBasicComponent implements OnInit {
     }
     this.deleteDishEmitter.emit(this.dishData.name);
     this.dbService.removeDish(this.dishData.key);
-    // this.getBorderColor();
   }
 }

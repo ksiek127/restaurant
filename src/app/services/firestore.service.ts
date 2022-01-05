@@ -185,9 +185,4 @@ export class FirestoreService {
       orderedDishes: user.orderedDishes
     });
   }
-
-  // getUserAsObject(email: string){
-  //   var user: AngularFireObject<User> = this.db.object(this.usersPath + '/' + email.replace(/\./g, ''));
-  //   return user;
-  // }
 }

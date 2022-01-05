@@ -131,16 +131,13 @@ export class DishComponent implements OnInit {
       if(this.dishData.maxNo == this.unitsOrdered){
         this.noneLeft = true;
       }
-      // var voted: boolean;
       this.dbService.getUser(this.authService.getEmail()).pipe(
         take(1),
         map(user => user.basket),
         tap(basket => {
           this.dbService.updateBasket(this.dishData, this.unitsOrdered, basket.voted, this.authService.getEmail());
-          // this.dbService.updateBasket(this.dish, basket.howMany, true);
         })
       )
-      // this.dbService.updateBasket(this.dishData, this.unitsOrdered, voted);
     }
   }
 
@@ -156,13 +153,11 @@ export class DishComponent implements OnInit {
       }
       this.checkIfLastUnits();
       this.noneLeft = false;
-      // this.dbService.updateBasket(this.dishData, this.unitsOrdered);
       this.dbService.getUser(this.authService.getEmail()).pipe(
         take(1),
         map(user => user.basket),
         tap(basket => {
           this.dbService.updateBasket(this.dishData, this.unitsOrdered, basket.voted, this.authService.getEmail());
-          // this.dbService.updateBasket(this.dish, basket.howMany, true);
         })
       )
     }

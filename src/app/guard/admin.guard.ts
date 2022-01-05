@@ -26,22 +26,6 @@ export class AdminGuard implements CanActivate {
         }
       })
     )
-    // if (this.admin) {
-    //   return true;
-    // }
-    // this.router.navigate(['mainpage']);
-    // return false;
-    // this.router.navigate(['mainpage']);
-    // return false;
-    // return this.authService.getLogged().pipe(
-    //   take(1),
-    //   map(user => user && user.admin ? true : false),
-    //   tap(isAdmin => {
-    //     if (!isAdmin) {
-    //       this.router.navigate(['mainpage']);
-    //     }
-    //   })
-    // );
   }
   
 }
